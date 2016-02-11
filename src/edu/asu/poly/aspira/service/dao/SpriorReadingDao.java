@@ -7,7 +7,7 @@ import edu.asu.poly.aspira.service.model.Sprioreading;
 
 public class SpriorReadingDao {
 	
-	public ArrayList<Sprioreading> GetspriorReadingData(Connection connection){
+	public ArrayList<Sprioreading> getspriorReadingData(Connection connection){
 		ArrayList<Sprioreading> spriorReadingList = new ArrayList<Sprioreading>();
 		
 		return spriorReadingList;
