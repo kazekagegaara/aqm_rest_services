@@ -21,7 +21,7 @@ public class Database {
 
 		try {
 			con = DriverManager
-			.getConnection("jdbc:mysql://localhost:3306/prp_development","dbuser", "root123");
+			.getConnection("jdbc:mysql://localhost:3306/aspira","dbuser", "root123");
 
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
@@ -38,7 +38,8 @@ public class Database {
 		return con;
 	}
 	public static void main(String[] argv) {
-
+Database obj = new Database();
+obj.Get_Connection();
 			  }
 }
 
