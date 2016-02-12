@@ -4,6 +4,8 @@
 
 package edu.asu.poly.aspira.service.model;
 
+import java.sql.Timestamp;
+
 public class AqmReadings {
 
 	private int id;
@@ -12,11 +14,11 @@ public class AqmReadings {
 	private String synced;
 	private int user_id;
 	private int device_id;
-	private String date_field;
-	private long geo_latitude;
-	private long geo_longitude;
+	private Timestamp date_field;
+	private double geo_latitude;
+	private double geo_longitude;
 	private String geo_method;
-	private String createdAt;
+	private Timestamp createdAt;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -66,27 +68,27 @@ public class AqmReadings {
 		return this.device_id;
 	}
 	
-	public void setDateField(String date_field) {
+	public void setDateField(Timestamp date_field) {
 		this.date_field = date_field;
 	}
 	
-	public String getDateField() {
+	public Timestamp getDateField() {
 		return this.date_field;
 	}
 	
-	public void setGeoLatitude(long geo_latitude) {
+	public void setGeoLatitude(double geo_latitude) {
 		this.geo_latitude = geo_latitude;
 	}
 	
-	public long getGeoLatitude() {
+	public double getGeoLatitude() {
 		return this.geo_latitude;
 	}
 	
-	public void setGeoLongitude(long geo_longitude) {
+	public void setGeoLongitude(double geo_longitude) {
 		this.geo_longitude = geo_longitude;
 	}
 	
-	public long getGeoLongitude() {
+	public double getGeoLongitude() {
 		return this.geo_longitude;
 	}
 	
@@ -98,11 +100,11 @@ public class AqmReadings {
 		return this.geo_method;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public String getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return this.createdAt;
 	}
 }

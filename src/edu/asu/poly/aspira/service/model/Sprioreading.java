@@ -4,14 +4,16 @@
 
 package edu.asu.poly.aspira.service.model;
 
+import java.sql.Timestamp;
+
 public class Sprioreading {
 
 	private int id;
 	private String reading;	
 	private String synced;	
-	private String timestamp;
+	private Timestamp timestamp;
 	private String timeOfDay;
-	private String createdAt;
+	private Timestamp createdAt;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -37,11 +39,11 @@ public class Sprioreading {
 		return this.synced;
 	}
 		
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 	
-	public String getTimestamp() {
+	public Timestamp getTimestamp() {
 		return this.timestamp;
 	}
 	
@@ -53,11 +55,11 @@ public class Sprioreading {
 		return this.timeOfDay;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public String getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return this.createdAt;
 	}
 }
