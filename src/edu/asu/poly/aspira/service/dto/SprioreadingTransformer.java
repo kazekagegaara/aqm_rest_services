@@ -38,7 +38,7 @@ public class SprioreadingTransformer {
 		Gson gson = new Gson();
 		String json = gson.toJson(result);
 		JsonObject j = new JsonObject();
-		j.add("Sprioreading",gson.toJsonTree(l));
+		j.add("Sprioreading",gson.toJsonTree(json));
 		return j.getAsString();
 	}
 

@@ -38,7 +38,7 @@ public class AqmReadingsTranformer {
 		Gson gson = new Gson();
 		String json = gson.toJson(result);
 		JsonObject j = new JsonObject();
-		j.add("AqmReadings",gson.toJsonTree(l));
+		j.add("AqmReadings",gson.toJsonTree(json));
 		return j.getAsString();
 	}
 	
