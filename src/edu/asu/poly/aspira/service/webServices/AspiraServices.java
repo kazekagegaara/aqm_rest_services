@@ -41,6 +41,7 @@ public class AspiraServices {
 	@GET
 	@Path("/GetSprioReading")
 	@Produces("application/json")
+	
 	public String getSprioReading()
 	{
 		return sprioreadingTransformer.getSprioreading();
