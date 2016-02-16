@@ -30,10 +30,20 @@ public class AllDataTransformer {
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
 		String jsonInner = jsonObj.getAsJsonArray("sprioReading").toString();
-		ArrayList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
-
+		LinkedList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
+		
+		String jsonInner2 = jsonObj.getAsJsonArray("aqmReadings").toString();
+		LinkedList<AqmReadings> models2 = gson.fromJson(jsonInner2, new TypeToken<List<AqmReadings>>(){}.getType());
+		
+		String jsonInner3 = jsonObj.getAsJsonArray("logs").toString();
+		LinkedList<Logs> models3 = gson.fromJson(jsonInner3, new TypeToken<List<Logs>>(){}.getType());
+		
+		int count1 = setSprioreadingsFromDAO(models);
+		int count2 = setAqmReadingFromDAO(models2);
+		int count3 = setLogsFromDAO(models3);
+		int count = count1 + count2 + count3;
 		// pass model to DAO
-		return setSprioreadingsFromDAO(models);
+		return count;
 	}
 
 	public String getAllData() {
@@ -58,7 +68,7 @@ public class AllDataTransformer {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 
-	private int setSprioreadingsFromDAO(ArrayList<Sprioreading> models) {
+	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) {
 		return new SpriorReadingDao().insertSpriorReading(models);
 	}
 	

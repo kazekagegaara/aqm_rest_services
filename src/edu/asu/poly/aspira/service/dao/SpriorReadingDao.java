@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import edu.asu.poly.aspira.service.model.Sprioreading;
 
@@ -43,7 +44,7 @@ public class SpriorReadingDao {
 		return spriorReadingList;
 	}
 	
-	public int insertSpriorReading(ArrayList<Sprioreading> spiroList){
+	public int insertSpriorReading(LinkedList<Sprioreading> spiroList){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -51,7 +52,7 @@ public class SpriorReadingDao {
 			String query = "insert into sprioreading"
 					+ "(id,reading,synced,"
 					+ "timestamp,time_of_day,createdAt) "
-					+ "values(?,?,?,?,?,systimestamp)";
+					+ "values(?,?,?,?,?,CURRENT_TIMESTAMP)";
 			
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);

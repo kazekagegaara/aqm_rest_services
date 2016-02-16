@@ -83,21 +83,27 @@ public class AspiraServices {
 	@POST
 	@Path("/PostSprioReading")
 	@Produces("application/json")
-	public String postSprioReading()
+	@Consumes("application/json")
+	public String postSprioReading(String input)
 	{
 		// This method should accept JSON as input
 		// sprioreadingTransformer.setSprioreading(input);
-		String feeds = "This is Post Sprio Reading";
-		return feeds;
+		int insertedRows = sprioreadingTransformer.setSprioreading(input);
+		JsonObject j = new JsonObject();
+		j.addProperty("success",insertedRows);
+		return j.toString();
 	}
 	@POST
 	@Path("/PostAll")
 	@Produces("application/json")
-	public String postAll()
+	@Consumes("application/json")
+	public String postAll(String input)
 	{
 		// This method should accept JSON as input
 		// TO-DO add another DTO class to handle "all" cases
-		String feeds = "This is post all";
-		return feeds;
+		int insertedRows = allDataTransformer.setAllData(input);
+		JsonObject j = new JsonObject();
+		j.addProperty("success",insertedRows);
+		return j.toString();
 	}
 }

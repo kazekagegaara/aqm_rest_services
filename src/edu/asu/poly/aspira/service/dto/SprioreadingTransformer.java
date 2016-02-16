@@ -5,6 +5,7 @@
 package edu.asu.poly.aspira.service.dto;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -25,7 +26,7 @@ public class SprioreadingTransformer {
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
 		String jsonInner = jsonObj.getAsJsonArray("sprioReading").toString();
-		ArrayList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
+		LinkedList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
 
 		// pass model to DAO
 		return setSprioreadingsFromDAO(models);
@@ -47,7 +48,7 @@ public class SprioreadingTransformer {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 
-	private int setSprioreadingsFromDAO(ArrayList<Sprioreading> models) {
+	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) {
 		return new SpriorReadingDao().insertSpriorReading(models);
 	}
 }
