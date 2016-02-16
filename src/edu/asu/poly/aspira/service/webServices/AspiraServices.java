@@ -6,9 +6,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.google.gson.JsonObject;
+
 import edu.asu.poly.aspira.service.dto.AqmReadingsTransformer;
 import edu.asu.poly.aspira.service.dto.LogsTransformer;
 import edu.asu.poly.aspira.service.dto.SprioreadingTransformer;
+import edu.asu.poly.aspira.service.dto.AllDataTransformer;
 
 @Path("/aspira")
 public class AspiraServices {
@@ -16,6 +19,7 @@ public class AspiraServices {
 	private AqmReadingsTransformer aqmReadingsTransformer = new AqmReadingsTransformer();
 	private LogsTransformer logsTransformer = new LogsTransformer();
 	private SprioreadingTransformer sprioreadingTransformer = new SprioreadingTransformer();
+	private AllDataTransformer allDataTransformer = new AllDataTransformer();
 
 
 	@GET
@@ -46,37 +50,35 @@ public class AspiraServices {
 	@Path("/GetAll")
 	@Produces("application/json")
 	public String getAll()
-	{
-		String aqmReadings = aqmReadingsTransformer.getAqmReading();
-		String logs = logsTransformer.getLogs();
-		String sprioReadings = sprioreadingTransformer.getSprioreading();
-		// TO-DO add another DTO class to handle "all" cases
-		// TO-DO need to merge the three JSON from above three strings in the new DTO class 
-		String feeds = "This is Get all";
-		return feeds;
+	{		
+		return allDataTransformer.getAllData();		
 	}
 
 	@POST
 	@Path("/PostAQMreading")
 	@Produces("application/json")
-	@Consumes("text/plain")
-	public String postAqmReading()
+	@Consumes("application/json")
+	public String postAqmReading(String input)
 	{
 		// This method should accept JSON as input
-		// aqmReadingsTransformer.setAqmReading(input);
-		String feeds = "This is Post AQM Reading";
-		return feeds;
+		int insertedRows = aqmReadingsTransformer.setAqmReading(input);
+		JsonObject j = new JsonObject();
+		j.addProperty("success",insertedRows);
+		return j.toString();
 	}
 
 	@POST
 	@Path("/PostLogs")
 	@Produces("application/json")
-	public String postLogs()
+	@Consumes("application/json")
+	public String postLogs(String input)
 	{
 		// This method should accept JSON as input
 		// logsTransformer.setLogs(input);
-		String feeds = "This is Post Log";
-		return feeds;
+		int insertedRows = logsTransformer.setLogs(input);
+		JsonObject j = new JsonObject();
+		j.addProperty("success",insertedRows);
+		return j.toString();
 	}
 	@POST
 	@Path("/PostSprioReading")

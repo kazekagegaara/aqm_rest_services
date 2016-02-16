@@ -5,9 +5,11 @@
 package edu.asu.poly.aspira.service.dto;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -23,8 +25,8 @@ public class LogsTransformer {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
-		String jsonInner = jsonObj.getAsJsonArray("aqmReadings").toString();
-		ArrayList<Logs> models = gson.fromJson(jsonInner, new TypeToken<List<Logs>>(){}.getType());
+		String jsonInner = jsonObj.getAsJsonArray("logs").toString();
+		LinkedList<Logs> models = gson.fromJson(jsonInner, new TypeToken<List<Logs>>(){}.getType());
 
 		// pass model to DAO
 		return setLogsFromDAO(models);
@@ -35,18 +37,18 @@ public class LogsTransformer {
 		List<Logs> result = getLogsFromDAO();
 
 		// transform to JSON and return results
-		Gson gson = new Gson();
-		String json = gson.toJson(result);
+		Gson gson = new Gson();		
+		JsonArray jsArray = gson.toJsonTree(result).getAsJsonArray();			
 		JsonObject j = new JsonObject();
-		j.add("Logs",gson.toJsonTree(json));
-		return j.getAsString();
+		j.add("Logs",jsArray);
+		return j.toString();
 	}
 
 	private List<Logs> getLogsFromDAO() {		
 		return new LogsDao().GetLogsData();		
 	}
 
-	private int setLogsFromDAO(ArrayList<Logs> models) {
+	private int setLogsFromDAO(LinkedList<Logs> models) {
 		return new LogsDao().insertLogs(models);
 	}
 }

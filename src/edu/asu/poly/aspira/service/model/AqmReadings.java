@@ -4,8 +4,6 @@
 
 package edu.asu.poly.aspira.service.model;
 
-import java.sql.Timestamp;
-
 public class AqmReadings {
 
 	private int id;
@@ -14,11 +12,11 @@ public class AqmReadings {
 	private String synced;
 	private int user_id;
 	private int device_id;
-	private Timestamp date_field;
+	private String date_field;
 	private double geo_latitude;
 	private double geo_longitude;
 	private String geo_method;
-	private Timestamp createdAt;
+	private String createdAt;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -68,11 +66,11 @@ public class AqmReadings {
 		return this.device_id;
 	}
 	
-	public void setDateField(Timestamp date_field) {
+	public void setDateField(String date_field) {
 		this.date_field = date_field;
 	}
 	
-	public Timestamp getDateField() {
+	public String getDateField() {
 		return this.date_field;
 	}
 	
@@ -100,11 +98,11 @@ public class AqmReadings {
 		return this.geo_method;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public Timestamp getCreatedAt() {
+	public String getCreatedAt() {
 		return this.createdAt;
 	}
 }

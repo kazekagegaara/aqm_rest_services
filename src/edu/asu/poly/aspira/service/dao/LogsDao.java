@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import edu.asu.poly.aspira.service.model.AqmReadings;
 import edu.asu.poly.aspira.service.model.Logs;
@@ -26,9 +27,9 @@ public class LogsDao {
 				log.setID(rs.getInt("id"));
 				log.setType(rs.getString("type"));
 				log.setSynced(rs.getString("synced"));
-				log.setTimestamp(rs.getTimestamp("timestamp"));
+				log.setTimestamp(rs.getString("timestamp"));
 				log.setExtras(rs.getString("extras"));
-				log.setCreatedAt(rs.getTimestamp("createdAt"));
+				log.setCreatedAt(rs.getString("createdAt"));
 				logList.add(log);
 			}
 		}
@@ -44,7 +45,7 @@ public class LogsDao {
 		return logList;
 	}
 	
-	public int insertLogs(ArrayList<Logs> logList){
+	public int insertLogs(LinkedList<Logs> logList){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -52,14 +53,14 @@ public class LogsDao {
 			String query = "insert into logs"
 					+ "(id,type,synced,"
 					+ "timestamp,extras,createdAt) "
-					+ "values(?,?,?,?,?,systimestamp)";
+					+ "values(?,?,?,?,?,CURRENT_TIMESTAMP)";
 			
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
 				ps.setInt(1,log.getID());
 				ps.setString(2, log.getType());
 				ps.setString(3, log.getSynced());
-				ps.setTimestamp(4, log.getTimestamp());
+				ps.setString(4, log.getTimestamp());
 				ps.setString(5, log.getExtras());
 				
 				int res = ps.executeUpdate();

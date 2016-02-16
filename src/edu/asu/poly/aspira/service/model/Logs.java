@@ -4,16 +4,14 @@
 
 package edu.asu.poly.aspira.service.model;
 
-import java.sql.Timestamp;
-
 public class Logs {
 	
 	private int id;
 	private String type;	
 	private String synced;	
-	private Timestamp timestamp;
+	private String timestamp;
 	private String extras;
-	private Timestamp createdAt;
+	private String createdAt;
 	
 	public void setID(int id) {
 		this.id = id;
@@ -39,11 +37,11 @@ public class Logs {
 		return this.synced;
 	}
 		
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 	
-	public Timestamp getTimestamp() {
+	public String getTimestamp() {
 		return this.timestamp;
 	}
 	
@@ -55,11 +53,11 @@ public class Logs {
 		return this.extras;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 	
-	public Timestamp getCreatedAt() {
+	public String getCreatedAt() {
 		return this.createdAt;
 	}
 }

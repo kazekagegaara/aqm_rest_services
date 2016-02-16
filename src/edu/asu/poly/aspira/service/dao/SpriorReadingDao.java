@@ -25,9 +25,9 @@ public class SpriorReadingDao {
 				spiro.setID(rs.getInt("id"));
 				spiro.setReading(rs.getString("reading"));
 				spiro.setSynced(rs.getString("synced"));
-				spiro.setTimestamp(rs.getTimestamp("timestamp"));
+				spiro.setTimestamp(rs.getString("timestamp"));
 				spiro.setTimeOfDay(rs.getString("time_of_day"));
-				spiro.setCreatedAt(rs.getTimestamp("createdAt"));
+				spiro.setCreatedAt(rs.getString("createdAt"));
 				spriorReadingList.add(spiro);
 			}
 		}
@@ -58,7 +58,7 @@ public class SpriorReadingDao {
 				ps.setInt(1,spiro.getID());
 				ps.setString(2, spiro.getReading());
 				ps.setString(3, spiro.getSynced());
-				ps.setTimestamp(4, spiro.getTimestamp());
+				ps.setString(4, spiro.getTimestamp());
 				ps.setString(5, spiro.getTimeOfDay());
 				
 				int res = ps.executeUpdate();

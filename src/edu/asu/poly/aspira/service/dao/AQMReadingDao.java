@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import edu.asu.poly.aspira.service.model.AqmReadings;
 public class AQMReadingDao {
 
@@ -26,11 +28,11 @@ public class AQMReadingDao {
 				aqm.setSynced(rs.getString("synced"));
 				aqm.setUserId(rs.getInt("user_id"));
 				aqm.setDeviceId(rs.getInt("device_id"));
-				aqm.setDateField(rs.getTimestamp("date_field"));
+				aqm.setDateField(rs.getString("date_field"));
 				aqm.setGeoLatitude(rs.getDouble("geo_latitude"));
 				aqm.setGeoLongitude(rs.getDouble("geo_longitude"));
 				aqm.setGeoMethod(rs.getString("geo_method"));
-				aqm.setCreatedAt(rs.getTimestamp("createdAt"));
+				aqm.setCreatedAt(rs.getString("createdAt"));
 				aqmList.add(aqm);
 			}
 		}
@@ -46,7 +48,7 @@ public class AQMReadingDao {
 		return aqmList;
 	}
 
-	public int insertAqmReading(ArrayList<AqmReadings> aqmList){
+	public int insertAqmReading(LinkedList<AqmReadings> aqmList){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -55,7 +57,7 @@ public class AQMReadingDao {
 					+ "(id,largeValue,smallValue,"
 					+ "synced,user_id,device_id,date_field,"
 					+ "geo_latitude,geo_longitude,geo_method,"
-					+ "createdAt) values(?,?,?,?,?,?,?,?,?,?,systimestamp)";
+					+ "createdAt) values(?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)";
 			
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
@@ -65,7 +67,7 @@ public class AQMReadingDao {
 				ps.setString(4, aqm.getSynced());
 				ps.setInt(5, aqm.getUserId());
 				ps.setInt(6, aqm.getDeviceId());
-				ps.setTimestamp(7, aqm.getDateField());
+				ps.setString(7, aqm.getDateField());
 				ps.setDouble(8, aqm.getGeoLatitude());
 				ps.setDouble(9, aqm.getGeoLongitude());
 				ps.setString(10, aqm.getGeoMethod());
