@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Aspira Dashboard">
+    <meta name="author" content="Kallol Chatterjee, Manit Singh Kalsi, Syed Zafar Shah">
+
+    <title>Aspira Dashboard</title>
+
+    <!-- AngularJS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div id="wrapper" ng-app="myApp" ng-controller="sprioCtrl">
+
+      <!-- Navigation -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Aspira Dashboard</a>
+        </div>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li>
+              <a href="#" ng-click="isLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Sprio Reading</a>
+            </li>
+            <li>
+              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isLogDisplayed = true;showLog();">Show Log</a>
+            </li>
+            <li>
+              <a href="#" ng-click="isSprioDisplayed = false;isLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show AQM</a>
+            </li>
+            <li>
+              <a href="#" ng-click="isAqmDisplayed = true;isLogDisplayed = true;isSprioDisplayed = true;showAQM();showLog();showSprio();">Show All</a>
+            </li>
+            <li>
+              <a href="#" ng-click="exportSpiro();">Export Sprio Data to CSV</a>
+            </li>
+            <li>
+              <a href="#" ng-click="exportLog();">Export Logs to CSV</a>
+            </li>
+            <li>
+              <a href="#" ng-click="exportAqm();">Export AQM Readings to CSV</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="table-responsive">
+              <table ng-show="isSprioDisplayed" class="table table-hover table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Id</th>
+                  <th>Reading</th>
+                  <th>Synced</th>
+                  <th>Timestamp</th>
+                  <th>TimeOfDay</th>
+                  <th>CreatedAt</th>
+                </tr>
+                <tr ng-repeat="x in sprio">
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ x.id }}</td>
+                  <td>{{ x.reading }}</td>
+                  <td>{{ x.synced }}</td>
+                  <td>{{ x.timestamp }}</td>
+                  <td>{{ x.timeOfDay }}</td>
+                  <td>{{ x.createdAt }}</td>
+                </tr>
+              </table>
+              <br>
+              <table ng-show="isLogDisplayed" class="table table-hover table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Id</th>
+                  <th>Type</th>
+                  <th>Synced</th>
+                  <th>Timestamp</th>
+                  <th>Extras</th>
+                  <th>CreatedAt</th>
+                </tr>
+                <tr ng-repeat="x in log">
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ x.id }}</td>
+                  <td>{{ x.type }}</td>
+                  <td>{{ x.synced }}</td>
+                  <td>{{ x.timestamp }}</td>
+                  <td>{{ x.extras }}</td>
+                  <td>{{ x.createdAt }}</td>
+                </tr>
+              </table>
+              <br>
+              <table ng-show="isAqmDisplayed" class="table table-hover table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Id</th>
+                  <th>Large Value</th>
+                  <th>Small Value</th>
+                  <th>Synced</th>
+                  <th>User Id</th>
+                  <th>Device Id</th>
+                  <th>Date Field</th>
+                  <th>Geo Latitude</th>
+                  <th>Geo Longitude</th>
+                  <th>Geo Method</th>
+                  <th>CreatedAt</th>
+                </tr>
+                <tr ng-repeat="x in aqm">
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ x.id }}</td>
+                  <td>{{ x.largeValue }}</td>
+                  <td>{{ x.smallValue }}</td>
+                  <td>{{ x.synced }}</td>
+                  <td>{{ x.user_id }}</td>
+                  <td>{{ x.device_id }}</td>
+                  <td>{{ x.date_field }}</td>
+                  <td>{{ x.geo_latitude }}</td>
+                  <td>{{ x.geo_longitude }}</td>
+                  <td>{{ x.geo_method }}</td>
+                  <td>{{ x.createdAt }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+  </body>
+
+  <script>
+    var app = angular.module('myApp', []);
+
+    app.controller('sprioCtrl', function($scope, $http) {
+
+      $scope.sprio;
+      $scope.log;
+      $scope.aqm;
+
+      $scope.showSprio = function() {
+        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetSprioReading")
+          .then(function(response) {
+            $scope.sprio = response.data.Sprioreading;
+          });        
+      }
+      $scope.showLog = function() {
+        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetLogs")
+          .then(function(response) {
+            $scope.log = response.data.Logs;
+          });        
+      }
+      $scope.showAQM = function() {
+        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetAQMreading")
+          .then(function(response) {
+            $scope.aqm = response.data.AqmReadings;
+          });        
+      }
+
+      $scope.exportSpiro = function() {
+        $scope.exportToCSV("sprio");
+      };
+
+      $scope.exportAqm = function() {
+        $scope.exportToCSV("aqm");
+      };
+
+      $scope.exportLog = function() {
+        $scope.exportToCSV("log");
+      };
+
+      $scope.exportToCSV = function(param) {
+        var data;
+        var csvContent = "data:text/csv;charset=utf-8,";
+        if (param == "sprio") {
+          data = $scope.sprio;
+          csvContent += "id,reading,synced,timestamp,timeOfDay,createdAt," + "\n";
+        } else if (param == "aqm") {
+          data = $scope.aqm;
+          csvContent += "id,largeValue,smallValue,synced,user_id,device_id,date_field,geo_latitude,geo_longitude,geo_method,createdAt," + "\n";
+        } else if (param == "log") {
+          data = $scope.log;
+          csvContent += "id,type,synced,timestamp,extras,createdAt," + "\n";
+        }
+
+        angular.forEach(data, function(value, key) {
+          var dataString = "";
+          angular.forEach(value, function(content, contentKey) {
+            if (contentKey != "$$hashKey") {
+              if (content == "" || content == " ")
+                dataString += " " + ",";
+              else
+                dataString += content + ",";
+            }
+
+          });
+          csvContent += dataString + "\n";
+        });
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", param + "_export.csv");
+        link.click();
+      };
+    });
+
+  </script>
+
+</html>
