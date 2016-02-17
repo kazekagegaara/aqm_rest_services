@@ -30,13 +30,13 @@ public class AllDataTransformer {
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
 		String jsonInner = jsonObj.getAsJsonArray("sprioReading").toString();
-		LinkedList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
+		Sprioreading models = gson.fromJson(jsonInner, Sprioreading.class);
 		
 		String jsonInner2 = jsonObj.getAsJsonArray("aqmReadings").toString();
-		LinkedList<AqmReadings> models2 = gson.fromJson(jsonInner2, new TypeToken<List<AqmReadings>>(){}.getType());
+		AqmReadings models2 = gson.fromJson(jsonInner2, AqmReadings.class);
 		
 		String jsonInner3 = jsonObj.getAsJsonArray("logs").toString();
-		LinkedList<Logs> models3 = gson.fromJson(jsonInner3, new TypeToken<List<Logs>>(){}.getType());
+		Logs models3 = gson.fromJson(jsonInner3, Logs.class);
 		
 		int count1 = setSprioreadingsFromDAO(models);
 		int count2 = setAqmReadingFromDAO(models2);
@@ -49,7 +49,8 @@ public class AllDataTransformer {
 	public String getAllData() {
 		// make call to DAO
 		List<Sprioreading> sprioreadingResult = getSprioreadingsFromDAO();
-		List<Logs> logResult = getLogsFromDAO();
+		List<Logs> logResult = getLogsFromDAO("uilogs");
+		logResult.addAll(getLogsFromDAO("errorlogs"));
 		List<AqmReadings> aqmReadingsResult = getAqmReadingsFromDAO();
 
 		// transform to JSON and return results
@@ -68,23 +69,23 @@ public class AllDataTransformer {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 
-	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) {
+	private int setSprioreadingsFromDAO(Sprioreading models) {
 		return new SpriorReadingDao().insertSpriorReading(models);
 	}
 	
-	private List<Logs> getLogsFromDAO() {		
-		return new LogsDao().GetLogsData();		
+	private List<Logs> getLogsFromDAO(String tableName) {		
+		return new LogsDao().GetLogsData(tableName);		
 	}
 
-	private int setLogsFromDAO(LinkedList<Logs> models) {
-		return new LogsDao().insertLogs(models);
+	private int setLogsFromDAO(Logs model) {
+		return new LogsDao().insertLogs(model);
 	}
 	
 	private List<AqmReadings> getAqmReadingsFromDAO() {
 		return new AQMReadingDao().GetAqmReadingData();
 	}
 	
-	private int setAqmReadingFromDAO(LinkedList<AqmReadings> models) {
+	private int setAqmReadingFromDAO(AqmReadings models) {
 		return new AQMReadingDao().insertAqmReading(models);
 	}
 }

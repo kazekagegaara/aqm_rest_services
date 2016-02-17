@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -25,8 +26,8 @@ public class SpriorReadingDao {
 				Sprioreading spiro = new Sprioreading();
 				spiro.setID(rs.getInt("id"));
 				spiro.setReading(rs.getString("reading"));
-				spiro.setSynced(rs.getString("synced"));
-				spiro.setTimestamp(rs.getString("timestamp"));
+				spiro.setDeviceId(rs.getInt("device_id"));
+				spiro.setTimestamp(rs.getTimestamp("timestamp").toString());
 				spiro.setTimeOfDay(rs.getString("time_of_day"));
 				spiro.setCreatedAt(rs.getString("createdAt"));
 				spriorReadingList.add(spiro);
@@ -44,22 +45,22 @@ public class SpriorReadingDao {
 		return spriorReadingList;
 	}
 	
-	public int insertSpriorReading(LinkedList<Sprioreading> spiroList){
+	public int insertSpriorReading(Sprioreading spiro){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
-		for(Sprioreading spiro : spiroList){
 			String query = "insert into sprioreading"
-					+ "(id,reading,synced,"
-					+ "timestamp,time_of_day,createdAt) "
-					+ "values(?,?,?,?,?,CURRENT_TIMESTAMP)";
+					+ "(id,reading,device_id,"
+					+ "timestamp,time_of_day) "
+					+ "values(?,?,?,?,?)";
 			
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
 				ps.setInt(1,spiro.getID());
 				ps.setString(2, spiro.getReading());
-				ps.setString(3, spiro.getSynced());
-				ps.setString(4, spiro.getTimestamp());
+				ps.setInt(3, spiro.getDeviceId());
+				Timestamp ts = new Timestamp(Long.parseLong(spiro.getTimestamp()));
+				ps.setTimestamp(4, ts);
 				ps.setString(5, spiro.getTimeOfDay());
 				
 				int res = ps.executeUpdate();
@@ -70,7 +71,7 @@ public class SpriorReadingDao {
 			}
 			
 			
-		}
+		
 		try {
 			connection.close();
 		} catch (SQLException e) {

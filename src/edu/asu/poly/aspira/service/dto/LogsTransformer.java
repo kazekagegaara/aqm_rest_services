@@ -25,16 +25,17 @@ public class LogsTransformer {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
-		String jsonInner = jsonObj.getAsJsonArray("logs").toString();
-		LinkedList<Logs> models = gson.fromJson(jsonInner, new TypeToken<List<Logs>>(){}.getType());
+//		String jsonInner = jsonObj.getAsJsonArray("logs").toString();
+		String jsonInner = jsonObj.toString();
+		Logs model = gson.fromJson(jsonInner,Logs.class);
 
 		// pass model to DAO
-		return setLogsFromDAO(models);
+		return setLogsFromDAO(model);
 	}
 
-	public String getLogs() {
+	public String getLogs(String tableName) {
 		// make call to DAO
-		List<Logs> result = getLogsFromDAO();
+		List<Logs> result = getLogsFromDAO(tableName);
 
 		// transform to JSON and return results
 		Gson gson = new Gson();		
@@ -44,11 +45,11 @@ public class LogsTransformer {
 		return j.toString();
 	}
 
-	private List<Logs> getLogsFromDAO() {		
-		return new LogsDao().GetLogsData();		
+	private List<Logs> getLogsFromDAO(String tableName) {		
+		return new LogsDao().GetLogsData(tableName);		
 	}
 
-	private int setLogsFromDAO(LinkedList<Logs> models) {
-		return new LogsDao().insertLogs(models);
+	private int setLogsFromDAO(Logs model) {
+		return new LogsDao().insertLogs(model);
 	}
 }

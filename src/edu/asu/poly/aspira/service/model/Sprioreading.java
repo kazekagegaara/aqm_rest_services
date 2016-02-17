@@ -8,9 +8,9 @@ public class Sprioreading {
 
 	private int id;
 	private String reading;	
-	private String synced;	
+	private int device_id;	
 	private String timestamp;
-	private String timeOfDay;
+	private String time_of_day;
 	private String createdAt;
 	
 	public void setID(int id) {
@@ -29,12 +29,12 @@ public class Sprioreading {
 		return this.reading;
 	}
 	
-	public void setSynced(String synced) {
-		this.synced = synced;
+	public void setDeviceId(int device_id) {
+		this.device_id = device_id;
 	}
 	
-	public String getSynced() {
-		return this.synced;
+	public int getDeviceId() {
+		return this.device_id;
 	}
 		
 	public void setTimestamp(String timestamp) {
@@ -46,11 +46,11 @@ public class Sprioreading {
 	}
 	
 	public void setTimeOfDay(String timeOfDay) {
-		this.timeOfDay = timeOfDay;
+		this.time_of_day = timeOfDay;
 	}
 	
 	public String getTimeOfDay() {
-		return this.timeOfDay;
+		return this.time_of_day;
 	}
 
 	public void setCreatedAt(String createdAt) {

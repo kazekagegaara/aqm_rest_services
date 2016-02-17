@@ -31,11 +31,18 @@ public class AspiraServices {
 	}
 
 	@GET
-	@Path("/GetLogs")
+	@Path("/GetUILogs")
 	@Produces("application/json")
-	public String getLogs()
+	public String getUILogs()
 	{
-		return logsTransformer.getLogs();
+		return logsTransformer.getLogs("uilogs");
+	}
+	@GET
+	@Path("/GetErrorLogs")
+	@Produces("application/json")
+	public String getErrorLogs()
+	{
+		return logsTransformer.getLogs("errorlogs");
 	}
 
 	@GET
@@ -69,10 +76,23 @@ public class AspiraServices {
 	}
 
 	@POST
-	@Path("/PostLogs")
+	@Path("/PostUILogs")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String postLogs(String input)
+	public String postUILogs(String input)
+	{
+		// This method should accept JSON as input
+		// logsTransformer.setLogs(input);
+		int insertedRows = logsTransformer.setLogs(input);
+		JsonObject j = new JsonObject();
+		j.addProperty("success",insertedRows);
+		return j.toString();
+	}
+	@POST
+	@Path("/PostErrorLogs")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public String postErrorLogs(String input)
 	{
 		// This method should accept JSON as input
 		// logsTransformer.setLogs(input);

@@ -25,11 +25,11 @@ public class SprioreadingTransformer {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
-		String jsonInner = jsonObj.getAsJsonArray("sprioReading").toString();
-		LinkedList<Sprioreading> models = gson.fromJson(jsonInner, new TypeToken<List<Sprioreading>>(){}.getType());
+		String jsonInner = jsonObj.toString();
+		Sprioreading model = gson.fromJson(jsonInner, Sprioreading.class);
 
 		// pass model to DAO
-		return setSprioreadingsFromDAO(models);
+		return setSprioreadingsFromDAO(model);
 	}
 
 	public String getSprioreading() {
@@ -48,7 +48,7 @@ public class SprioreadingTransformer {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 
-	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) {
-		return new SpriorReadingDao().insertSpriorReading(models);
+	private int setSprioreadingsFromDAO(Sprioreading model) {
+		return new SpriorReadingDao().insertSpriorReading(model);
 	}
 }

@@ -9,13 +9,8 @@ public class AqmReadings {
 	private int id;
 	private String largeValue;
 	private String smallValue;
-	private String synced;
-	private int user_id;
 	private int device_id;
 	private String date_field;
-	private double geo_latitude;
-	private double geo_longitude;
-	private String geo_method;
 	private String createdAt;
 	
 	public void setID(int id) {
@@ -42,22 +37,6 @@ public class AqmReadings {
 		return this.smallValue;
 	}
 	
-	public void setSynced(String synced) {
-		this.synced = synced;
-	}
-	
-	public String getSynced() {
-		return this.synced;
-	}
-	
-	public void setUserId(int user_id) {
-		this.user_id = user_id;
-	}
-	
-	public int getUserId() {
-		return this.user_id;
-	}
-	
 	public void setDeviceId(int device_id) {
 		this.device_id = device_id;
 	}
@@ -74,30 +53,6 @@ public class AqmReadings {
 		return this.date_field;
 	}
 	
-	public void setGeoLatitude(double geo_latitude) {
-		this.geo_latitude = geo_latitude;
-	}
-	
-	public double getGeoLatitude() {
-		return this.geo_latitude;
-	}
-	
-	public void setGeoLongitude(double geo_longitude) {
-		this.geo_longitude = geo_longitude;
-	}
-	
-	public double getGeoLongitude() {
-		return this.geo_longitude;
-	}
-	
-	public void setGeoMethod(String geo_method) {
-		this.geo_method = geo_method;
-	}
-	
-	public String getGeoMethod() {
-		return this.geo_method;
-	}
-
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}

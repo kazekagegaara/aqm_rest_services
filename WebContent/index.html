@@ -52,22 +52,28 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li>
-              <a href="#" ng-click="isLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Sprio Reading</a>
+              <a href="#" ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Sprio Reading</a>
             </li>
             <li>
-              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isLogDisplayed = true;showLog();">Show Log</a>
+              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog();">Show UI Log</a>
             </li>
             <li>
-              <a href="#" ng-click="isSprioDisplayed = false;isLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show AQM</a>
+              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = true;showErrorLog();">Show Error Log</a>
             </li>
             <li>
-              <a href="#" ng-click="isAqmDisplayed = true;isLogDisplayed = true;isSprioDisplayed = true;showAQM();showLog();showSprio();">Show All</a>
+              <a href="#" ng-click="isSprioDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show AQM</a>
+            </li>
+            <li>
+              <a href="#" ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM();showUILog();showErrorLog();showSprio();">Show All</a>
             </li>
             <li>
               <a href="#" ng-click="exportSpiro();">Export Sprio Data to CSV</a>
             </li>
             <li>
-              <a href="#" ng-click="exportLog();">Export Logs to CSV</a>
+              <a href="#" ng-click="exportUILog();">Export UI Logs to CSV</a>
+            </li>
+            <li>
+              <a href="#" ng-click="exportErrorLog();">Export Error Logs to CSV</a>
             </li>
             <li>
               <a href="#" ng-click="exportAqm();">Export AQM Readings to CSV</a>
@@ -83,7 +89,7 @@
 
           <div class="row">
             <div class="table-responsive">
-            <p ng-hide="isSprioDisplayed || isLogDisplayed || isAqmDisplayed"> Select option from left menu. 
+            <p ng-hide="isSprioDisplayed || isErrorLogDisplayed || isAqmDisplayed || isUILogDisplayed"> Select option from left menu. 
             <br> Before exporting, please click on the corresponding show option.
             </p>
             <fieldset ng-show="isSprioDisplayed">
@@ -93,7 +99,7 @@
                   <th>Index</th>
                   <th>Id</th>
                   <th>Reading</th>
-                  <th>Synced</th>
+                  <th>Device Id</th>
                   <th>Timestamp</th>
                   <th>TimeOfDay</th>
                   <th>CreatedAt</th>
@@ -102,39 +108,63 @@
                   <td>{{ $index + 1 }}</td>
                   <td>{{ x.id }}</td>
                   <td>{{ x.reading }}</td>
-                  <td>{{ x.synced }}</td>
+                  <td>{{ x.device_id }}</td>
                   <td>{{ x.timestamp }}</td>
-                  <td>{{ x.timeOfDay }}</td>
+                  <td>{{ x.time_of_day }}</td>
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
               </fieldset>
-              <br>
-              <fieldset ng-show="isLogDisplayed">
-            <legend> Log</legend>
+              <fieldset ng-show="isUILogDisplayed">
+            <legend>UI Log</legend>
               <table class="table table-hover table-striped">
                 <tr>
                   <th>Index</th>
                   <th>Id</th>
                   <th>Type</th>
-                  <th>Synced</th>
+                  <th>Type Code</th>
+                  <th>Device Id</th>
                   <th>Timestamp</th>
                   <th>Extras</th>
                   <th>CreatedAt</th>
                 </tr>
-                <tr ng-repeat="x in log">
+                <tr ng-repeat="x in UIlog">
                   <td>{{ $index + 1 }}</td>
                   <td>{{ x.id }}</td>
                   <td>{{ x.type }}</td>
-                  <td>{{ x.synced }}</td>
+                  <td>{{ x.typecode }}</td>
+                  <td>{{ x.device_id }}</td>
                   <td>{{ x.timestamp }}</td>
                   <td>{{ x.extras }}</td>
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
               </fieldset>
-              
-              <br>
+              <fieldset ng-show="isErrorLogDisplayed">
+            <legend>Error Log</legend>
+              <table class="table table-hover table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Id</th>
+                  <th>Type</th>
+                  <th>Type Code</th>
+                  <th>Device Id</th>
+                  <th>Timestamp</th>
+                  <th>Extras</th>
+                  <th>CreatedAt</th>
+                </tr>
+                <tr ng-repeat="x in Errorlog">
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ x.id }}</td>
+                  <td>{{ x.type }}</td>
+                  <td>{{ x.typecode }}</td>
+                  <td>{{ x.device_id }}</td>
+                  <td>{{ x.timestamp }}</td>
+                  <td>{{ x.extras }}</td>
+                  <td>{{ x.createdAt }}</td>
+                </tr>
+              </table>
+              </fieldset>
               <fieldset ng-show="isAqmDisplayed">
             <legend>AQM Reading</legend>
               <table class="table table-hover table-striped">
@@ -143,13 +173,8 @@
                   <th>Id</th>
                   <th>Large Value</th>
                   <th>Small Value</th>
-                  <th>Synced</th>
-                  <th>User Id</th>
                   <th>Device Id</th>
                   <th>Date Field</th>
-                  <th>Geo Latitude</th>
-                  <th>Geo Longitude</th>
-                  <th>Geo Method</th>
                   <th>CreatedAt</th>
                 </tr>
                 <tr ng-repeat="x in aqm">
@@ -157,13 +182,8 @@
                   <td>{{ x.id }}</td>
                   <td>{{ x.largeValue }}</td>
                   <td>{{ x.smallValue }}</td>
-                  <td>{{ x.synced }}</td>
-                  <td>{{ x.user_id }}</td>
                   <td>{{ x.device_id }}</td>
                   <td>{{ x.date_field }}</td>
-                  <td>{{ x.geo_latitude }}</td>
-                  <td>{{ x.geo_longitude }}</td>
-                  <td>{{ x.geo_method }}</td>
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
@@ -189,8 +209,9 @@
     app.controller('sprioCtrl', function($scope, $http) {
 
       $scope.sprio;
-      $scope.log;
+      $scope.UIlog;
       $scope.aqm;
+      $scope.Errorlog;
 
       $scope.showSprio = function() {
         $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetSprioReading")
@@ -198,11 +219,17 @@
             $scope.sprio = response.data.Sprioreading;
           });        
       }
-      $scope.showLog = function() {
-        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetLogs")
+      $scope.showUILog = function() {
+        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetUILogs")
           .then(function(response) {
-            $scope.log = response.data.Logs;
+            $scope.UIlog = response.data.Logs;
           });        
+      }
+      $scope.showErrorLog = function() {
+          $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetErrorLogs")
+            .then(function(response) {
+              $scope.Errorlog = response.data.Logs;
+            });        
       }
       $scope.showAQM = function() {
         $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetAQMreading")
@@ -219,23 +246,29 @@
         $scope.exportToCSV("aqm");
       };
 
-      $scope.exportLog = function() {
-        $scope.exportToCSV("log");
+      $scope.exportUILog = function() {
+        $scope.exportToCSV("UIlog");
       };
+      $scope.exportErrorLog = function() {
+          $scope.exportToCSV("Errorlog");
+        };
 
       $scope.exportToCSV = function(param) {
         var data;
         var csvContent = "data:text/csv;charset=utf-8,";
         if (param == "sprio") {
           data = $scope.sprio;
-          csvContent += "id,reading,synced,timestamp,timeOfDay,createdAt," + "\n";
+          csvContent += "id,reading,device_id,timestamp,timeOfDay,createdAt," + "\n";
         } else if (param == "aqm") {
           data = $scope.aqm;
-          csvContent += "id,largeValue,smallValue,synced,user_id,device_id,date_field,geo_latitude,geo_longitude,geo_method,createdAt," + "\n";
-        } else if (param == "log") {
-          data = $scope.log;
-          csvContent += "id,type,synced,timestamp,extras,createdAt," + "\n";
-        }
+          csvContent += "id,largeValue,smallValue,device_id,date_field,createdAt," + "\n";
+        } else if (param == "UIlog") {
+          data = $scope.UIlog;
+          csvContent += "id,type,typecode,device_id,timestamp,extras,createdAt," + "\n";
+        } else if (param == "Errorlog") {
+            data = $scope.Errorlog;
+            csvContent += "id,type,typecode,device_id,timestamp,extras,createdAt," + "\n";
+          }
 
         angular.forEach(data, function(value, key) {
           var dataString = "";

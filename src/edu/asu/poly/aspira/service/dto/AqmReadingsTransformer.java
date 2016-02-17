@@ -26,11 +26,11 @@ public class AqmReadingsTransformer {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
 		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
-		String jsonInner = jsonObj.getAsJsonArray("aqmReadings").toString();
-		LinkedList<AqmReadings> models = gson.fromJson(jsonInner, new TypeToken<List<AqmReadings>>(){}.getType());
+		String jsonInner = jsonObj.toString();
+		AqmReadings model = gson.fromJson(jsonInner, AqmReadings.class);
 				
 		// pass model to DAO
-		return setAqmReadingFromDAO(models);
+		return setAqmReadingFromDAO(model);
 	}
 	
 	public String getAqmReading() {
@@ -49,7 +49,7 @@ public class AqmReadingsTransformer {
 		return new AQMReadingDao().GetAqmReadingData();
 	}
 	
-	private int setAqmReadingFromDAO(LinkedList<AqmReadings> models) {
-		return new AQMReadingDao().insertAqmReading(models);
+	private int setAqmReadingFromDAO(AqmReadings model) {
+		return new AQMReadingDao().insertAqmReading(model);
 	}
 }

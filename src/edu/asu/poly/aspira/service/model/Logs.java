@@ -4,15 +4,29 @@
 
 package edu.asu.poly.aspira.service.model;
 
+import java.sql.Timestamp;
+
 public class Logs {
 	
 	private int id;
+	private int device_id;
 	private String type;	
-	private String synced;	
+	private String typecode;	
 	private String timestamp;
 	private String extras;
 	private String createdAt;
 	
+	
+
+
+	public int getDevice_id() {
+		return device_id;
+	}
+
+	public void setDevice_id(int device_id) {
+		this.device_id = device_id;
+	}
+
 	public void setID(int id) {
 		this.id = id;
 	}
@@ -29,12 +43,12 @@ public class Logs {
 		return this.type;
 	}
 	
-	public void setSynced(String synced) {
-		this.synced = synced;
+	public void setTypeCode(String typeCode) {
+		this.typecode = typeCode;
 	}
 	
-	public String getSynced() {
-		return this.synced;
+	public String getTypeCode() {
+		return this.typecode;
 	}
 		
 	public void setTimestamp(String timestamp) {

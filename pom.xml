@@ -17,42 +17,6 @@
         <jersey2.version>2.19</jersey2.version>
         <jaxrs.version>2.0.1</jaxrs.version>
     </properties>
-    <dependencies>
-        <!-- JAX-RS -->
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>${jaxrs.version}</version>
-        </dependency>
-        <!-- Jersey 2.19 -->
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>${jersey2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-server</artifactId>
-            <version>${jersey2.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jersey2.version}</version>
-        </dependency>
-        <dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>1.4</version>
-		</dependency>
-		
-        
-    </dependencies>
     <build>
         <finalName>aqmrestservices</finalName>
         <plugins>
