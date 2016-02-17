@@ -83,7 +83,12 @@
 
           <div class="row">
             <div class="table-responsive">
-              <table ng-show="isSprioDisplayed" class="table table-hover table-striped">
+            <p ng-hide="isSprioDisplayed || isLogDisplayed || isAqmDisplayed"> Select option from left menu. 
+            <br> Before exporting, please click on the corresponding show option.
+            </p>
+            <fieldset ng-show="isSprioDisplayed">
+            <legend>Sprio Reading</legend>
+              <table  class="table table-hover table-striped">
                 <tr>
                   <th>Index</th>
                   <th>Id</th>
@@ -103,8 +108,11 @@
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
+              </fieldset>
               <br>
-              <table ng-show="isLogDisplayed" class="table table-hover table-striped">
+              <fieldset ng-show="isLogDisplayed">
+            <legend> Log</legend>
+              <table class="table table-hover table-striped">
                 <tr>
                   <th>Index</th>
                   <th>Id</th>
@@ -124,8 +132,12 @@
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
+              </fieldset>
+              
               <br>
-              <table ng-show="isAqmDisplayed" class="table table-hover table-striped">
+              <fieldset ng-show="isAqmDisplayed">
+            <legend>AQM Reading</legend>
+              <table class="table table-hover table-striped">
                 <tr>
                   <th>Index</th>
                   <th>Id</th>
@@ -155,6 +167,7 @@
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
+              </fieldset>
             </div>
           </div>
           <!-- /.row -->
