@@ -6,51 +6,51 @@ package edu.asu.poly.aspira.service.model;
 
 public class AqmReadings {
 
-	private int id;
-	private String largeValue;
-	private String smallValue;
-	private int device_id;
-	private String date_field;
+	private int _id;
+	private String largeParticle;
+	private String smallParticle;
+	private int deviceId;
+	private String dateTime;
 	private String createdAt;
 	
 	public void setID(int id) {
-		this.id = id;
+		this._id = id;
 	}
 	
 	public int getID() {
-		return this.id;
+		return this._id;
 	}
 	
 	public void setLargeValue(String largeValue) {
-		this.largeValue = largeValue;
+		this.largeParticle = largeValue;
 	}
 	
 	public String getLargeValue() {
-		return this.largeValue;
+		return this.largeParticle;
 	}
 
 	public void setSmallValue(String smallValue) {
-		this.smallValue = smallValue;
+		this.smallParticle = smallValue;
 	}
 	
 	public String getSmallValue() {
-		return this.smallValue;
+		return this.smallParticle;
 	}
 	
 	public void setDeviceId(int device_id) {
-		this.device_id = device_id;
+		this.deviceId = device_id;
 	}
 	
 	public int getDeviceId() {
-		return this.device_id;
+		return this.deviceId;
 	}
 	
 	public void setDateField(String date_field) {
-		this.date_field = date_field;
+		this.dateTime = date_field;
 	}
 	
 	public String getDateField() {
-		return this.date_field;
+		return this.dateTime;
 	}
 	
 	public void setCreatedAt(String createdAt) {

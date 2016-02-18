@@ -1,5 +1,6 @@
 package edu.asu.poly.aspira.service.dao;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -7,9 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import javax.ws.rs.Consumes;
 
-import edu.asu.poly.aspira.service.constants.Constants;
+
 
 public class Database {
 	public Connection Get_Connection(){
@@ -32,12 +32,37 @@ public class Database {
 		String dbPwd = null;
 		String connectionURL = null;
 		
-			dbUrl = Constants.getDbUrl();
-			dbPort = Constants.getDbPort();
-			dbName = Constants.getDbName();
-			dbUser = Constants.getDbUser();
-			dbPwd = Constants.getDbPwd();
-			connectionURL = "jdbc:mysql://"+dbUrl+":"+dbPort+"/"+dbName;
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+
+			input = getClass().getResourceAsStream("config.properties");
+
+			// load a properties file
+			prop.load(input);
+			
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		
+		dbUrl = prop.getProperty("dbURL");
+		dbPort = prop.getProperty("dbport");
+		dbName = prop.getProperty("dbName");
+		dbUser = prop.getProperty("dbUser");
+		dbPwd = prop.getProperty("dbPassword");
+
+		connectionURL = "jdbc:mysql://"+dbUrl+":"+dbPort+"/"+dbName;
 			
 		try {
 			con = DriverManager.getConnection(connectionURL,dbUser, dbPwd);

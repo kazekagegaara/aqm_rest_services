@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 
 public class Logs {
 	
-	private int id;
+	private int _id;
 	private int device_id;
 	private String type;	
-	private String typecode;	
+	private String type_code;	
 	private String timestamp;
 	private String extras;
 	private String createdAt;
@@ -28,11 +28,11 @@ public class Logs {
 	}
 
 	public void setID(int id) {
-		this.id = id;
+		this._id = id;
 	}
 	
 	public int getID() {
-		return this.id;
+		return this._id;
 	}
 	
 	public void setType(String type) {
@@ -44,11 +44,11 @@ public class Logs {
 	}
 	
 	public void setTypeCode(String typeCode) {
-		this.typecode = typeCode;
+		this.type_code = typeCode;
 	}
 	
 	public String getTypeCode() {
-		return this.typecode;
+		return this.type_code;
 	}
 		
 	public void setTimestamp(String timestamp) {

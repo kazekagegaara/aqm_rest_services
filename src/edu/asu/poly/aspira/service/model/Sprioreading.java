@@ -6,7 +6,7 @@ package edu.asu.poly.aspira.service.model;
 
 public class Sprioreading {
 
-	private int id;
+	private int _id;
 	private String reading;	
 	private int device_id;	
 	private String timestamp;
@@ -14,11 +14,11 @@ public class Sprioreading {
 	private String createdAt;
 	
 	public void setID(int id) {
-		this.id = id;
+		this._id = id;
 	}
 	
 	public int getID() {
-		return this.id;
+		return this._id;
 	}
 	
 	public void setReading(String reading) {
