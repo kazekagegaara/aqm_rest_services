@@ -4,7 +4,6 @@
 
 package edu.asu.poly.aspira.service.dto;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,17 +19,15 @@ import edu.asu.poly.aspira.service.dao.LogsDao;
 public class LogsTransformer {
 
 	public int setLogs(String inputJSON) {
-		// get String from service and convert to Model	
-		// accepts String of format - {"logs":[{"_id":"","type":"","timestamp":"","synced":"","extras":""	}]}
+		// get String from service and convert to Model			
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
-		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);
-//		String jsonInner = jsonObj.getAsJsonArray("logs").toString();
+		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);		
 		String jsonInner = jsonObj.toString();
-		Logs model = gson.fromJson(jsonInner,Logs.class);
+		LinkedList<Logs> models = gson.fromJson(jsonInner,new TypeToken<List<Logs>>(){}.getType());
 
 		// pass model to DAO
-		return setLogsFromDAO(model);
+		return setLogsFromDAO(models);
 	}
 
 	public String getLogs(String tableName) {
@@ -49,7 +46,7 @@ public class LogsTransformer {
 		return new LogsDao().GetLogsData(tableName);		
 	}
 
-	private int setLogsFromDAO(Logs model) {
-		return new LogsDao().insertLogs(model);
+	private int setLogsFromDAO(LinkedList<Logs> models) {
+		return new LogsDao().insertLogs(models);
 	}
 }

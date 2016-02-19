@@ -4,8 +4,6 @@
 
 package edu.asu.poly.aspira.service.model;
 
-import java.sql.Timestamp;
-
 public class Logs {
 	
 	private int _id;
@@ -15,9 +13,6 @@ public class Logs {
 	private String timestamp;
 	private String extras;
 	private String createdAt;
-	
-	
-
 
 	public int getDevice_id() {
 		return device_id;

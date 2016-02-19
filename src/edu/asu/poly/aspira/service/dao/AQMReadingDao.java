@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.asu.poly.aspira.service.model.AqmReadings;
+
 public class AQMReadingDao {
 
 	public ArrayList<AqmReadings> GetAqmReadingData(){
@@ -44,14 +45,15 @@ public class AQMReadingDao {
 		return aqmList;
 	}
 
-	public int insertAqmReading(AqmReadings aqm){
+	public int insertAqmReading(LinkedList<AqmReadings> aqmList){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
+		for(AqmReadings aqm : aqmList) {
 			String query = "insert into aqmreadings"
 					+ "(id,largeValue,smallValue,"
 					+ "device_id,date_field) values(?,?,?,?,?)";
-			
+
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
 				ps.setInt(1,aqm.getID());
@@ -66,16 +68,16 @@ public class AQMReadingDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-		
+
+		}
+
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return updatedRows;
 	}
 

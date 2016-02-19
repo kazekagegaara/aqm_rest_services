@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import edu.asu.poly.aspira.service.model.AqmReadings;
 import edu.asu.poly.aspira.service.model.Logs;
 
 public class LogsDao {
@@ -46,12 +45,14 @@ public class LogsDao {
 		}
 		return logList;
 	}
-	
-	public int insertLogs(Logs log){
+
+	public int insertLogs(LinkedList<Logs> logs){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
-		String tableName = "";
+
+		for(Logs log : logs) {
+			String tableName = "";
 			System.out.println(log.getType());
 			if(log.getType().equals("UI")){
 				tableName = "uilogs";
@@ -62,7 +63,7 @@ public class LogsDao {
 					+ " (id,type,typecode,"
 					+ "timestamp,extras,device_id) "
 					+ "values(?,?,?,?,?,?)";
-			
+
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
 				ps.setInt(1,log.getID());
@@ -72,23 +73,23 @@ public class LogsDao {
 				ps.setTimestamp(4, ts);
 				ps.setString(5, log.getExtras());
 				ps.setInt(6, log.getDevice_id());
-				
+
 				int res = ps.executeUpdate();
 				updatedRows = updatedRows + res;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-		
+
+		}	
+
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return updatedRows;
 	}
 }

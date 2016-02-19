@@ -45,7 +45,7 @@ public class SpriorReadingDao {
 		return spriorReadingList;
 	}
 	
-	public int insertSpriorReading(Sprioreading spiro){
+	public int insertSpriorReading(LinkedList<Sprioreading> spiroList){
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -53,7 +53,7 @@ public class SpriorReadingDao {
 					+ "(id,reading,device_id,"
 					+ "timestamp,time_of_day) "
 					+ "values(?,?,?,?,?)";
-			
+		for(Sprioreading spiro : spiroList) {	
 			try {
 				PreparedStatement ps = connection.prepareStatement(query);
 				ps.setInt(1,spiro.getID());
@@ -70,7 +70,7 @@ public class SpriorReadingDao {
 				e.printStackTrace();
 			}
 			
-			
+		}	
 		
 		try {
 			connection.close();

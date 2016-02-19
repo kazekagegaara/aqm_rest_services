@@ -75,7 +75,6 @@ public class AspiraServices {
 	@Consumes("application/json")
 	public String postAqmReading(String input)
 	{
-		// This method should accept JSON as input
 		int insertedRows = aqmReadingsTransformer.setAqmReading(input);
 		JsonObject j = new JsonObject();
 		j.addProperty("success",insertedRows);
@@ -88,50 +87,22 @@ public class AspiraServices {
 	@Consumes("application/json")
 	public String postUILogs(String input)
 	{
-		// This method should accept JSON as input
-		// logsTransformer.setLogs(input);
 		int insertedRows = logsTransformer.setLogs(input);
 		JsonObject j = new JsonObject();
 		j.addProperty("success",insertedRows);
 		return j.toString();
 	}
-//	@POST
-//	@Path("/PostErrorLogs")
-//	@Produces("application/json")
-//	@Consumes("application/json")
-//	public String postErrorLogs(String input)
-//	{
-//		// This method should accept JSON as input
-//		// logsTransformer.setLogs(input);
-//		int insertedRows = logsTransformer.setLogs(input);
-//		JsonObject j = new JsonObject();
-//		j.addProperty("success",insertedRows);
-//		return j.toString();
-//	}
+
 	@POST
 	@Path("/PostSprioReading")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String postSprioReading(String input)
 	{
-		// This method should accept JSON as input
-		// sprioreadingTransformer.setSprioreading(input);
 		int insertedRows = sprioreadingTransformer.setSprioreading(input);
 		JsonObject j = new JsonObject();
 		j.addProperty("success",insertedRows);
 		return j.toString();
 	}
-	@POST
-	@Path("/PostAll")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public String postAll(String input)
-	{
-		// This method should accept JSON as input
-		// TO-DO add another DTO class to handle "all" cases
-		int insertedRows = allDataTransformer.setAllData(input);
-		JsonObject j = new JsonObject();
-		j.addProperty("success",insertedRows);
-		return j.toString();
-	}
+
 }
