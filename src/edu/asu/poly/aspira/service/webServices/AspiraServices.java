@@ -21,7 +21,14 @@ public class AspiraServices {
 	private SprioreadingTransformer sprioreadingTransformer = new SprioreadingTransformer();
 	private AllDataTransformer allDataTransformer = new AllDataTransformer();
 
-
+	@GET
+	@Path("/PingServer")
+	@Produces("application/json")
+	public String pingServer()
+	{
+		return "Ping Request Acknowledged";
+	}
+	
 	@GET
 	@Path("/GetAQMreading")
 	@Produces("application/json")
@@ -76,7 +83,7 @@ public class AspiraServices {
 	}
 
 	@POST
-	@Path("/PostUILogs")
+	@Path("/PostLogs")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String postUILogs(String input)
@@ -88,19 +95,19 @@ public class AspiraServices {
 		j.addProperty("success",insertedRows);
 		return j.toString();
 	}
-	@POST
-	@Path("/PostErrorLogs")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public String postErrorLogs(String input)
-	{
-		// This method should accept JSON as input
-		// logsTransformer.setLogs(input);
-		int insertedRows = logsTransformer.setLogs(input);
-		JsonObject j = new JsonObject();
-		j.addProperty("success",insertedRows);
-		return j.toString();
-	}
+//	@POST
+//	@Path("/PostErrorLogs")
+//	@Produces("application/json")
+//	@Consumes("application/json")
+//	public String postErrorLogs(String input)
+//	{
+//		// This method should accept JSON as input
+//		// logsTransformer.setLogs(input);
+//		int insertedRows = logsTransformer.setLogs(input);
+//		JsonObject j = new JsonObject();
+//		j.addProperty("success",insertedRows);
+//		return j.toString();
+//	}
 	@POST
 	@Path("/PostSprioReading")
 	@Produces("application/json")

@@ -52,7 +52,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li>
-              <a href="#" ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Sprio Reading</a>
+              <a href="#" ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Spirometer Reading</a>
             </li>
             <li>
               <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog();">Show UI Log</a>
@@ -67,7 +67,7 @@
               <a href="#" ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM();showUILog();showErrorLog();showSprio();">Show All</a>
             </li>
             <li>
-              <a href="#" ng-click="exportSpiro();">Export Sprio Data to CSV</a>
+              <a href="#" ng-click="exportSpiro();">Export Spirometer Data to CSV</a>
             </li>
             <li>
               <a href="#" ng-click="exportUILog();">Export UI Logs to CSV</a>
@@ -93,7 +93,7 @@
             <br> Before exporting, please click on the corresponding show option.
             </p>
             <fieldset ng-show="isSprioDisplayed">
-            <legend>Sprio Reading</legend>
+            <legend>Spiro Reading</legend>
               <table  class="table table-hover table-striped">
                 <tr>
                   <th>Index</th>
@@ -106,7 +106,7 @@
                 </tr>
                 <tr ng-repeat="x in sprio">
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ x.id }}</td>
+                  <td>{{ x._id }}</td>
                   <td>{{ x.reading }}</td>
                   <td>{{ x.device_id }}</td>
                   <td>{{ x.timestamp }}</td>
@@ -130,9 +130,9 @@
                 </tr>
                 <tr ng-repeat="x in UIlog">
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ x.id }}</td>
+                  <td>{{ x._id }}</td>
                   <td>{{ x.type }}</td>
-                  <td>{{ x.typecode }}</td>
+                  <td>{{ x.type_code }}</td>
                   <td>{{ x.device_id }}</td>
                   <td>{{ x.timestamp }}</td>
                   <td>{{ x.extras }}</td>
@@ -155,9 +155,9 @@
                 </tr>
                 <tr ng-repeat="x in Errorlog">
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ x.id }}</td>
+                  <td>{{ x._id }}</td>
                   <td>{{ x.type }}</td>
-                  <td>{{ x.typecode }}</td>
+                  <td>{{ x.type_code }}</td>
                   <td>{{ x.device_id }}</td>
                   <td>{{ x.timestamp }}</td>
                   <td>{{ x.extras }}</td>
@@ -179,11 +179,11 @@
                 </tr>
                 <tr ng-repeat="x in aqm">
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ x.id }}</td>
-                  <td>{{ x.largeValue }}</td>
-                  <td>{{ x.smallValue }}</td>
-                  <td>{{ x.device_id }}</td>
-                  <td>{{ x.date_field }}</td>
+                  <td>{{ x._id }}</td>
+                  <td>{{ x.largeParticle }}</td>
+                  <td>{{ x.smallParticle }}</td>
+                  <td>{{ x.deviceId }}</td>
+                  <td>{{ x.dateTime }}</td>
                   <td>{{ x.createdAt }}</td>
                 </tr>
               </table>
@@ -214,25 +214,25 @@
       $scope.Errorlog;
 
       $scope.showSprio = function() {
-        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetSprioReading")
+        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetSprioReading")
           .then(function(response) {
             $scope.sprio = response.data.Sprioreading;
           });        
       }
       $scope.showUILog = function() {
-        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetUILogs")
+        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetUILogs")
           .then(function(response) {
             $scope.UIlog = response.data.Logs;
           });        
       }
       $scope.showErrorLog = function() {
-          $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetErrorLogs")
+          $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetErrorLogs")
             .then(function(response) {
               $scope.Errorlog = response.data.Logs;
             });        
       }
       $scope.showAQM = function() {
-        $http.get("http://localhost:8080/aqmrestservices/rest/aspira/GetAQMreading")
+        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetAQMreading")
           .then(function(response) {
             $scope.aqm = response.data.AqmReadings;
           });        
