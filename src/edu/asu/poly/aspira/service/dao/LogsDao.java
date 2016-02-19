@@ -12,7 +12,7 @@ import edu.asu.poly.aspira.service.model.Logs;
 
 public class LogsDao {
 
-	public ArrayList<Logs> GetLogsData(String tableName){
+	public ArrayList<Logs> GetLogsData(String tableName) throws Exception{
 		ArrayList<Logs> logList = new ArrayList<Logs>();
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -36,17 +36,19 @@ public class LogsDao {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			throw e;
 		}
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return logList;
 	}
 
-	public int insertLogs(LinkedList<Logs> logs){
+	public int insertLogs(LinkedList<Logs> logs) throws Exception{
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -79,6 +81,7 @@ public class LogsDao {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw e;
 			}
 
 		}	
@@ -88,6 +91,7 @@ public class LogsDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 
 		return updatedRows;

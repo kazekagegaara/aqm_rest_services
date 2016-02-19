@@ -18,7 +18,7 @@ import edu.asu.poly.aspira.service.dao.LogsDao;
 
 public class LogsTransformer {
 
-	public int setLogs(String inputJSON) {
+	public int setLogs(String inputJSON) throws Exception {
 		// get String from service and convert to Model			
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -30,7 +30,7 @@ public class LogsTransformer {
 		return setLogsFromDAO(models);
 	}
 
-	public String getLogs(String tableName) {
+	public String getLogs(String tableName) throws Exception {
 		// make call to DAO
 		List<Logs> result = getLogsFromDAO(tableName);
 
@@ -42,11 +42,11 @@ public class LogsTransformer {
 		return j.toString();
 	}
 
-	private List<Logs> getLogsFromDAO(String tableName) {		
+	private List<Logs> getLogsFromDAO(String tableName) throws Exception {		
 		return new LogsDao().GetLogsData(tableName);		
 	}
 
-	private int setLogsFromDAO(LinkedList<Logs> models) {
+	private int setLogsFromDAO(LinkedList<Logs> models) throws Exception {
 		return new LogsDao().insertLogs(models);
 	}
 }

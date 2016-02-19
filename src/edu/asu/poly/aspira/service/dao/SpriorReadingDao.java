@@ -12,7 +12,7 @@ import edu.asu.poly.aspira.service.model.Sprioreading;
 
 public class SpriorReadingDao {
 	
-	public ArrayList<Sprioreading> getspriorReadingData(){
+	public ArrayList<Sprioreading> getspriorReadingData() throws Exception{
 		ArrayList<Sprioreading> spriorReadingList = new ArrayList<Sprioreading>();
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -35,17 +35,19 @@ public class SpriorReadingDao {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			throw e;
 		}
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return spriorReadingList;
 	}
 	
-	public int insertSpriorReading(LinkedList<Sprioreading> spiroList){
+	public int insertSpriorReading(LinkedList<Sprioreading> spiroList) throws Exception{
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -68,6 +70,7 @@ public class SpriorReadingDao {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw e;
 			}
 			
 		}	
@@ -77,6 +80,7 @@ public class SpriorReadingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		
 		

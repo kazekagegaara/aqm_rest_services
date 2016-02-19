@@ -18,7 +18,7 @@ import edu.asu.poly.aspira.service.dao.AQMReadingDao;
 
 public class AqmReadingsTransformer {
 
-	public int setAqmReading(String inputJSON) {
+	public int setAqmReading(String inputJSON) throws Exception {
 		// get String from service and convert to Model	
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -30,7 +30,7 @@ public class AqmReadingsTransformer {
 		return setAqmReadingFromDAO(models);
 	}
 	
-	public String getAqmReading() {
+	public String getAqmReading() throws Exception {
 		// make call to DAO
 		List<AqmReadings> result = getAqmReadingsFromDAO();
 		
@@ -42,11 +42,11 @@ public class AqmReadingsTransformer {
 		return j.toString();		
 	}
 	
-	private List<AqmReadings> getAqmReadingsFromDAO() {
+	private List<AqmReadings> getAqmReadingsFromDAO() throws Exception {
 		return new AQMReadingDao().GetAqmReadingData();
 	}
 	
-	private int setAqmReadingFromDAO(LinkedList<AqmReadings> models) {
+	private int setAqmReadingFromDAO(LinkedList<AqmReadings> models) throws Exception {
 		return new AQMReadingDao().insertAqmReading(models);
 	}
 }

@@ -12,7 +12,7 @@ import edu.asu.poly.aspira.service.model.AqmReadings;
 
 public class AQMReadingDao {
 
-	public ArrayList<AqmReadings> GetAqmReadingData(){
+	public ArrayList<AqmReadings> GetAqmReadingData() throws Exception{
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
 		ArrayList<AqmReadings> aqmList = new ArrayList<AqmReadings>();
@@ -35,17 +35,19 @@ public class AQMReadingDao {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			throw e;
 		}
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return aqmList;
 	}
 
-	public int insertAqmReading(LinkedList<AqmReadings> aqmList){
+	public int insertAqmReading(LinkedList<AqmReadings> aqmList) throws Exception{
 		int updatedRows = 0;
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
@@ -67,6 +69,7 @@ public class AQMReadingDao {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw e;
 			}
 
 		}
@@ -76,6 +79,7 @@ public class AQMReadingDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 
 		return updatedRows;

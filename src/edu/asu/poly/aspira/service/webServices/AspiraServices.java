@@ -34,7 +34,15 @@ public class AspiraServices {
 	@Produces("application/json")
 	public String getAqmReading()
 	{
-		return aqmReadingsTransformer.getAqmReading();
+		String response = "";
+		try {
+			response = aqmReadingsTransformer.getAqmReading(); 
+		} catch(Exception e) {
+			JsonObject j = new JsonObject();
+			j.addProperty("Error",e.getMessage());
+			response = j.toString();
+		}
+		return response; 
 	}
 
 	@GET
@@ -42,14 +50,30 @@ public class AspiraServices {
 	@Produces("application/json")
 	public String getUILogs()
 	{
-		return logsTransformer.getLogs("uilogs");
+		String response = "";
+		try {
+			response = logsTransformer.getLogs("uilogs");
+		} catch(Exception e) {
+			JsonObject j = new JsonObject();
+			j.addProperty("Error",e.getMessage());
+			response = j.toString();
+		}
+		return response;		
 	}
 	@GET
 	@Path("/GetErrorLogs")
 	@Produces("application/json")
 	public String getErrorLogs()
 	{
-		return logsTransformer.getLogs("errorlogs");
+		String response = "";
+		try {
+			response = logsTransformer.getLogs("errorlogs");
+		} catch(Exception e) {
+			JsonObject j = new JsonObject();
+			j.addProperty("Error",e.getMessage());
+			response = j.toString();
+		}
+		return response;		
 	}
 
 	@GET
@@ -58,15 +82,31 @@ public class AspiraServices {
 	
 	public String getSprioReading()
 	{
-		return sprioreadingTransformer.getSprioreading();
+		String response = "";
+		try {
+			response = sprioreadingTransformer.getSprioreading();
+		} catch(Exception e) {
+			JsonObject j = new JsonObject();
+			j.addProperty("Error",e.getMessage());
+			response = j.toString();
+		}
+		return response;		
 	}
 
 	@GET
 	@Path("/GetAll")
 	@Produces("application/json")
 	public String getAll()
-	{		
-		return allDataTransformer.getAllData();		
+	{	
+		String response = "";
+		try {
+			response = allDataTransformer.getAllData();
+		} catch(Exception e) {
+			JsonObject j = new JsonObject();
+			j.addProperty("Error",e.getMessage());
+			response = j.toString();
+		}
+		return response;		
 	}
 
 	@POST
@@ -75,9 +115,18 @@ public class AspiraServices {
 	@Consumes("application/json")
 	public String postAqmReading(String input)
 	{
-		int insertedRows = aqmReadingsTransformer.setAqmReading(input);
+		int insertedRows = 0;
 		JsonObject j = new JsonObject();
-		j.addProperty("success",insertedRows);
+		try {
+			insertedRows = aqmReadingsTransformer.setAqmReading(input);
+			if(insertedRows > 0) {
+				j.addProperty("success",insertedRows);
+			} else {
+				j.addProperty("Error", "Unable to store AqmReading values");
+			}				
+		} catch(Exception e) {
+			j.addProperty("Error", e.getMessage());
+		}		
 		return j.toString();
 	}
 
@@ -87,9 +136,18 @@ public class AspiraServices {
 	@Consumes("application/json")
 	public String postUILogs(String input)
 	{
-		int insertedRows = logsTransformer.setLogs(input);
+		int insertedRows = 0;
 		JsonObject j = new JsonObject();
-		j.addProperty("success",insertedRows);
+		try {
+			insertedRows = logsTransformer.setLogs(input);
+			if(insertedRows > 0) {
+				j.addProperty("success",insertedRows);
+			} else {
+				j.addProperty("Error", "Unable to store logs");
+			}
+		} catch(Exception e) {
+			j.addProperty("Error", e.getMessage());
+		}		
 		return j.toString();
 	}
 
@@ -99,10 +157,19 @@ public class AspiraServices {
 	@Consumes("application/json")
 	public String postSprioReading(String input)
 	{
-		int insertedRows = sprioreadingTransformer.setSprioreading(input);
+		int insertedRows = 0;
 		JsonObject j = new JsonObject();
-		j.addProperty("success",insertedRows);
-		return j.toString();
+		try {
+			insertedRows = sprioreadingTransformer.setSprioreading(input);
+			if(insertedRows > 0) {
+				j.addProperty("success",insertedRows);
+			} else {
+				j.addProperty("Error", "Unable to sprio readings");
+			}
+		} catch(Exception e) {
+			j.addProperty("Error", e.getMessage());
+		}		
+		return j.toString();		
 	}
 
 }

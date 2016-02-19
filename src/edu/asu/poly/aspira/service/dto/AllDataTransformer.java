@@ -19,7 +19,7 @@ import edu.asu.poly.aspira.service.dao.SpriorReadingDao;
 
 public class AllDataTransformer {
 
-	public String getAllData() {
+	public String getAllData() throws Exception {
 		// make call to DAO
 		List<Sprioreading> sprioreadingResult = getSprioreadingsFromDAO();
 		List<Logs> logResult = getLogsFromDAO("uilogs");
@@ -38,16 +38,16 @@ public class AllDataTransformer {
 		return j.toString();
 	}
 
-	private List<Sprioreading> getSprioreadingsFromDAO() {
+	private List<Sprioreading> getSprioreadingsFromDAO() throws Exception {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 	
-	private List<Logs> getLogsFromDAO(String tableName) {		
+	private List<Logs> getLogsFromDAO(String tableName) throws Exception {		
 		return new LogsDao().GetLogsData(tableName);		
 	}
 
 	
-	private List<AqmReadings> getAqmReadingsFromDAO() {
+	private List<AqmReadings> getAqmReadingsFromDAO() throws Exception {
 		return new AQMReadingDao().GetAqmReadingData();
 	}
 

@@ -18,7 +18,7 @@ import edu.asu.poly.aspira.service.dao.SpriorReadingDao;
 
 public class SprioreadingTransformer {
 
-	public int setSprioreading(String inputJSON) {
+	public int setSprioreading(String inputJSON) throws Exception {
 		// get String from service and convert to Model		
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
@@ -30,7 +30,7 @@ public class SprioreadingTransformer {
 		return setSprioreadingsFromDAO(models);
 	}
 
-	public String getSprioreading() {
+	public String getSprioreading() throws Exception {
 		// make call to DAO
 		List<Sprioreading> result = getSprioreadingsFromDAO();
 
@@ -42,11 +42,11 @@ public class SprioreadingTransformer {
 		return j.toString();
 	}
 
-	private List<Sprioreading> getSprioreadingsFromDAO() {
+	private List<Sprioreading> getSprioreadingsFromDAO() throws Exception {
 		return new SpriorReadingDao().getspriorReadingData();
 	}
 
-	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) {
+	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) throws Exception {
 		return new SpriorReadingDao().insertSpriorReading(models);
 	}
 }
