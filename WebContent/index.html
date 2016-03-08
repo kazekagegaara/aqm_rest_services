@@ -1,210 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Aspira Dashboard">
-    <meta name="author" content="Kallol Chatterjee, Manit Singh Kalsi, Syed Zafar Shah">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Aspira Dashboard">
+<meta name="author"
+	content="Kallol Chatterjee, Manit Singh Kalsi, Syed Zafar Shah, Monosrija Maity">
 
-    <title>Aspira Dashboard</title>
+<title>Aspira Dashboard</title>
 
-    <!-- AngularJS -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!-- AngularJS -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="js/dirPagination.js"></script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="css/sb-admin.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div id="wrapper" ng-app="myApp" ng-controller="sprioCtrl">
+	<div id="wrapper" ng-app="myApp" ng-controller="sprioCtrl">
 
-      <!-- Navigation -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Aspira Dashboard</a>
-        </div>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li>
-              <a href="#" ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show Spirometer Reading</a>
-            </li>
-            <li>
-              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog();">Show UI Log</a>
-            </li>
-            <li>
-              <a href="#" ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = true;showErrorLog();">Show Error Log</a>
-            </li>
-            <li>
-              <a href="#" ng-click="isSprioDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show AQM</a>
-            </li>
-            <li>
-              <a href="#" ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM();showUILog();showErrorLog();showSprio();">Show All</a>
-            </li>
-            <li>
-              <a href="#" ng-click="exportSpiro();">Export Spirometer Data to CSV</a>
-            </li>
-            <li>
-              <a href="#" ng-click="exportUILog();">Export UI Logs to CSV</a>
-            </li>
-            <li>
-              <a href="#" ng-click="exportErrorLog();">Export Error Logs to CSV</a>
-            </li>
-            <li>
-              <a href="#" ng-click="exportAqm();">Export AQM Readings to CSV</a>
-            </li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </nav>
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Aspira Dashboard</a>
+			</div>
+			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav side-nav">
+					<li><a href="#"
+						ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show
+							Spirometer Reading</a></li>
+					<li><a href="#"
+						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog();">Show
+							UI Log</a></li>
+					<li><a href="#"
+						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = true;showErrorLog();">Show
+							Error Log</a></li>
+					<li><a href="#"
+						ng-click="isSprioDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show
+							AQM</a></li>
+					<li><a href="#"
+						ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM();showUILog();showErrorLog();showSprio();">Show
+							All</a></li>
+					<li><a href="#" ng-click="exportSpiro();">Export
+							Spirometer Data to CSV</a></li>
+					<li><a href="#" ng-click="exportUILog();">Export UI Logs
+							to CSV</a></li>
+					<li><a href="#" ng-click="exportErrorLog();">Export Error
+							Logs to CSV</a></li>
+					<li><a href="#" ng-click="exportAqm();">Export AQM
+							Readings to CSV</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
 
-      <div id="page-wrapper">
+		<div id="page-wrapper">
 
-        <div class="container-fluid">
+			<div class="container-fluid">
 
-          <div class="row">
-            <div class="table-responsive">
-            <p ng-hide="isSprioDisplayed || isErrorLogDisplayed || isAqmDisplayed || isUILogDisplayed"> Select option from left menu. 
-            <br> Before exporting, please click on the corresponding show option.
-            </p>
-            <fieldset ng-show="isSprioDisplayed">
-            <legend>Spiro Reading</legend>
-              <table  class="table table-hover table-striped">
-                <tr>
-                  <th>Index</th>
-                  <th>Id</th>
-                  <th>Reading</th>
-                  <th>Device Id</th>
-                  <th>Timestamp</th>
-                  <th>TimeOfDay</th>
-                  <th>CreatedAt</th>
-                </tr>
-                <tr ng-repeat="x in sprio">
-                  <td>{{ $index + 1 }}</td>
-                  <td>{{ x._id }}</td>
-                  <td>{{ x.reading }}</td>
-                  <td>{{ x.device_id }}</td>
-                  <td>{{ x.timestamp }}</td>
-                  <td>{{ x.time_of_day }}</td>
-                  <td>{{ x.createdAt }}</td>
-                </tr>
-              </table>
-              </fieldset>
-              <fieldset ng-show="isUILogDisplayed">
-            <legend>UI Log</legend>
-              <table class="table table-hover table-striped">
-                <tr>
-                  <th>Index</th>
-                  <th>Id</th>
-                  <th>Type</th>
-                  <th>Type Code</th>
-                  <th>Device Id</th>
-                  <th>Timestamp</th>
-                  <th>Extras</th>
-                  <th>CreatedAt</th>
-                </tr>
-                <tr ng-repeat="x in UIlog">
-                  <td>{{ $index + 1 }}</td>
-                  <td>{{ x._id }}</td>
-                  <td>{{ x.type }}</td>
-                  <td>{{ x.type_code }}</td>
-                  <td>{{ x.device_id }}</td>
-                  <td>{{ x.timestamp }}</td>
-                  <td>{{ x.extras }}</td>
-                  <td>{{ x.createdAt }}</td>
-                </tr>
-              </table>
-              </fieldset>
-              <fieldset ng-show="isErrorLogDisplayed">
-            <legend>Error Log</legend>
-              <table class="table table-hover table-striped">
-                <tr>
-                  <th>Index</th>
-                  <th>Id</th>
-                  <th>Type</th>
-                  <th>Type Code</th>
-                  <th>Device Id</th>
-                  <th>Timestamp</th>
-                  <th>Extras</th>
-                  <th>CreatedAt</th>
-                </tr>
-                <tr ng-repeat="x in Errorlog">
-                  <td>{{ $index + 1 }}</td>
-                  <td>{{ x._id }}</td>
-                  <td>{{ x.type }}</td>
-                  <td>{{ x.type_code }}</td>
-                  <td>{{ x.device_id }}</td>
-                  <td>{{ x.timestamp }}</td>
-                  <td>{{ x.extras }}</td>
-                  <td>{{ x.createdAt }}</td>
-                </tr>
-              </table>
-              </fieldset>
-              <fieldset ng-show="isAqmDisplayed">
-            <legend>AQM Reading</legend>
-              <table class="table table-hover table-striped">
-                <tr>
-                  <th>Index</th>
-                  <th>Id</th>
-                  <th>Large Value</th>
-                  <th>Small Value</th>
-                  <th>Device Id</th>
-                  <th>Date Field</th>
-                  <th>CreatedAt</th>
-                </tr>
-                <tr ng-repeat="x in aqm">
-                  <td>{{ $index + 1 }}</td>
-                  <td>{{ x._id }}</td>
-                  <td>{{ x.largeParticle }}</td>
-                  <td>{{ x.smallParticle }}</td>
-                  <td>{{ x.deviceId }}</td>
-                  <td>{{ x.dateTime }}</td>
-                  <td>{{ x.createdAt }}</td>
-                </tr>
-              </table>
-              </fieldset>
-            </div>
-          </div>
-          <!-- /.row -->
+				<div class="row">
+					<div class="table-responsive">
+						<p
+							ng-hide="isSprioDisplayed || isErrorLogDisplayed || isAqmDisplayed || isUILogDisplayed">
+							Select option from left menu. <br> Before exporting, please
+							click on the corresponding show option.
+						</p>
+						<fieldset ng-show="isSprioDisplayed">
+							<legend>Spiro Reading</legend>
+							<label>Search: <input ng-model="searchText"></label>
+							<table class="table table-hover table-striped">
+								<tr>
+									<th>Index</th>
+									<th>Id</th>
+									<th>Reading</th>
+									<th>Subject Id</th>
+									<th>Timestamp</th>
+									<th>TimeOfDay</th>
+									<th>CreatedAt</th>
+								</tr>
+								<tr
+									dir-paginate="x in sprio | filter:searchText | itemsPerPage:50" pagination-id="paginate1">
+									<td>{{ $index + 1 }}</td>
+									<td>{{ x._id }}</td>
+									<td>{{ x.reading }}</td>
+									<td>{{ x.device_id }}</td>
+									<td>{{ x.timestamp }}</td>
+									<td>{{ x.time_of_day }}</td>
+									<td>{{ x.createdAt }}</td>
+								</tr>
+							</table>
+							<dir-pagination-controls pagination-id="paginate1" max-size="5" direction-links="true"
+								boundary-links="true"> </dir-pagination-controls>
+						</fieldset>
+						<fieldset ng-show="isUILogDisplayed">
+							<legend>UI Log</legend>
+							<label>Search: <input ng-model="searchText1"></label>
+							<table class="table table-hover table-striped">
+								<tr>
+									<th>Index</th>
+									<th>Id</th>
+									<th>Type</th>
+									<th>Type Code</th>
+									<th>Subject Id</th>
+									<th>Timestamp</th>
+									<th>Extras</th>
+									<th>CreatedAt</th>
+								</tr>
+								<tr dir-paginate="x in UIlog | filter:searchText1 | itemsPerPage:50" pagination-id="paginate2">
+									<td>{{ $index + 1 }}</td>
+									<td>{{ x._id }}</td>
+									<td>{{ x.type }}</td>
+									<td>{{ x.type_code }}</td>
+									<td>{{ x.device_id }}</td>
+									<td>{{ x.timestamp }}</td>
+									<td>{{ x.extras }}</td>
+									<td>{{ x.createdAt }}</td>
+								</tr>
+							</table>
+							<dir-pagination-controls pagination-id="paginate2" max-size="5" direction-links="true"
+								boundary-links="true"> </dir-pagination-controls>
+		
+						</fieldset>
+						<fieldset ng-show="isErrorLogDisplayed">
+							<legend>Error Log</legend>
+							<label>Search: <input ng-model="searchText2"></label>
+							<table class="table table-hover table-striped">
+								<tr>
+									<th>Index</th>
+									<th>Id</th>
+									<th>Type</th>
+									<th>Type Code</th>
+									<th>Subject Id</th>
+									<th>Timestamp</th>
+									<th>Extras</th>
+									<th>CreatedAt</th>
+								</tr>
+								<tr dir-paginate="x in Errorlog | filter:searchText2 | itemsPerPage:50" pagination-id="paginate3">
+									<td>{{ $index + 1 }}</td>
+									<td>{{ x._id }}</td>
+									<td>{{ x.type }}</td>
+									<td>{{ x.type_code }}</td>
+									<td>{{ x.device_id }}</td>
+									<td>{{ x.timestamp }}</td>
+									<td>{{ x.extras }}</td>
+									<td>{{ x.createdAt }}</td>
+								</tr>
+							</table>
+							<dir-pagination-controls pagination-id="paginate3" max-size="5" direction-links="true"
+								boundary-links="true"> </dir-pagination-controls>
+		
+						</fieldset>
+						<fieldset ng-show="isAqmDisplayed">
+							<legend>AQM Reading</legend>
+							<label>Search: <input ng-model="searchText3"></label>
+							<table class="table table-hover table-striped">
+								<tr>
+									<th>Index</th>
+									<th>Id</th>
+									<th>Large Value</th>
+									<th>Small Value</th>
+									<th>Subject Id</th>
+									<th>Date Field</th>
+									<th>CreatedAt</th>
+								</tr>
+								<tr dir-paginate="x in aqm | filter:searchText3 | itemsPerPage:50" pagination-id="paginate4">
+									<td>{{ $index + 1 }}</td>
+									<td>{{ x._id }}</td>
+									<td>{{ x.largeParticle }}</td>
+									<td>{{ x.smallParticle }}</td>
+									<td>{{ x.deviceId }}</td>
+									<td>{{ x.dateTime }}</td>
+									<td>{{ x.createdAt }}</td>
+								</tr>
+							</table>
+												<dir-pagination-controls pagination-id="paginate4" max-size="5" direction-links="true"
+								boundary-links="true"> </dir-pagination-controls>
+		
+						</fieldset>
+					</div>
+				</div>
+				<!-- /.row -->
 
-        </div>
-        <!-- /.container-fluid -->
+			</div>
+			<!-- /.container-fluid -->
 
-      </div>
-      <!-- /#page-wrapper -->
+		</div>
+		<!-- /#page-wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-  </body>
+</body>
 
-  <script>
-    var app = angular.module('myApp', []);
+<script>
+    var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
 
     app.controller('sprioCtrl', function($scope, $http) {
 
@@ -214,25 +231,25 @@
       $scope.Errorlog;
 
       $scope.showSprio = function() {
-        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetSprioReading")
+        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetSprioReading")
           .then(function(response) {
             $scope.sprio = response.data.Sprioreading;
           });        
       }
       $scope.showUILog = function() {
-        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetUILogs")
+        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetUILogs")
           .then(function(response) {
             $scope.UIlog = response.data.Logs;
           });        
       }
       $scope.showErrorLog = function() {
-          $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetErrorLogs")
+          $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetErrorLogs")
             .then(function(response) {
               $scope.Errorlog = response.data.Logs;
             });        
       }
       $scope.showAQM = function() {
-        $http.get("http://localhost:8080/aqm_rest_services/rest/aspira/GetAQMreading")
+        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetAQMreading")
           .then(function(response) {
             $scope.aqm = response.data.AqmReadings;
           });        

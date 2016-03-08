@@ -22,7 +22,7 @@ public class LogsTransformer {
 		// get String from service and convert to Model			
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser();
-		JsonObject jsonObj = (JsonObject) parser.parse(inputJSON);		
+		JsonArray jsonObj = (JsonArray) parser.parse(inputJSON);		
 		String jsonInner = jsonObj.toString();
 		LinkedList<Logs> models = gson.fromJson(jsonInner,new TypeToken<List<Logs>>(){}.getType());
 
