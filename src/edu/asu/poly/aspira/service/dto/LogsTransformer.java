@@ -30,9 +30,9 @@ public class LogsTransformer {
 		return setLogsFromDAO(models);
 	}
 
-	public String getLogs(String tableName) throws Exception {
+	public String getLogs(String tableName,String x) throws Exception {
 		// make call to DAO
-		List<Logs> result = getLogsFromDAO(tableName);
+		List<Logs> result = getLogsFromDAO(tableName,x);
 
 		// transform to JSON and return results
 		Gson gson = new Gson();		
@@ -42,8 +42,8 @@ public class LogsTransformer {
 		return j.toString();
 	}
 
-	private List<Logs> getLogsFromDAO(String tableName) throws Exception {		
-		return new LogsDao().GetLogsData(tableName);		
+	private List<Logs> getLogsFromDAO(String tableName, String offset) throws Exception {		
+		return new LogsDao().GetLogsData(tableName, offset);		
 	}
 
 	private int setLogsFromDAO(LinkedList<Logs> models) throws Exception {

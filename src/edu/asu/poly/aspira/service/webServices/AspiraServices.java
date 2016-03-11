@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.google.gson.JsonObject;
@@ -30,13 +31,13 @@ public class AspiraServices {
 	}
 	
 	@GET
-	@Path("/GetAQMreading")
+	@Path("/GetAQMreading/{varX}")
 	@Produces("application/json")
-	public String getAqmReading()
+	public String getAqmReading(@PathParam("varX") String varX)
 	{
 		String response = "";
 		try {
-			response = aqmReadingsTransformer.getAqmReading(); 
+			response = aqmReadingsTransformer.getAqmReading(varX); 
 		} catch(Exception e) {
 			JsonObject j = new JsonObject();
 			j.addProperty("Error",e.getMessage());
@@ -46,13 +47,14 @@ public class AspiraServices {
 	}
 
 	@GET
-	@Path("/GetUILogs")
+	@Path("/GetUILogs/{varX}")
 	@Produces("application/json")
-	public String getUILogs()
+	public String getUILogs(@PathParam("varX") String varX)
 	{
+		System.out.println("parameter : "+varX);
 		String response = "";
 		try {
-			response = logsTransformer.getLogs("uilogs");
+			response = logsTransformer.getLogs("uilogs",varX);
 		} catch(Exception e) {
 			JsonObject j = new JsonObject();
 			j.addProperty("Error",e.getMessage());
@@ -61,13 +63,14 @@ public class AspiraServices {
 		return response;		
 	}
 	@GET
-	@Path("/GetErrorLogs")
+	@Path("/GetErrorLogs/{varX}")
 	@Produces("application/json")
-	public String getErrorLogs()
+	public String getErrorLogs(@PathParam("varX") String varX)
 	{
+		System.out.println("parameter : "+varX);
 		String response = "";
 		try {
-			response = logsTransformer.getLogs("errorlogs");
+			response = logsTransformer.getLogs("errorlogs",varX);
 		} catch(Exception e) {
 			JsonObject j = new JsonObject();
 			j.addProperty("Error",e.getMessage());
@@ -77,14 +80,14 @@ public class AspiraServices {
 	}
 
 	@GET
-	@Path("/GetSprioReading")
+	@Path("/GetSprioReading/{varX}")
 	@Produces("application/json")
 	
-	public String getSprioReading()
+	public String getSprioReading(@PathParam("varX") String varX)
 	{
 		String response = "";
 		try {
-			response = sprioreadingTransformer.getSprioreading();
+			response = sprioreadingTransformer.getSprioreading(varX);
 		} catch(Exception e) {
 			JsonObject j = new JsonObject();
 			j.addProperty("Error",e.getMessage());

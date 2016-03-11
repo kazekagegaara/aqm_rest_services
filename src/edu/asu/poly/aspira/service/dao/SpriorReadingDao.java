@@ -12,13 +12,13 @@ import edu.asu.poly.aspira.service.model.Sprioreading;
 
 public class SpriorReadingDao {
 	
-	public ArrayList<Sprioreading> getspriorReadingData() throws Exception{
+	public ArrayList<Sprioreading> getspriorReadingData(String offset) throws Exception{
 		ArrayList<Sprioreading> spriorReadingList = new ArrayList<Sprioreading>();
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
 		try
 		{
-			String query = "SELECT * FROM sprioreading";
+			String query = "SELECT * FROM sprioreading limit 50 offset "+offset;
 			PreparedStatement ps = connection.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())

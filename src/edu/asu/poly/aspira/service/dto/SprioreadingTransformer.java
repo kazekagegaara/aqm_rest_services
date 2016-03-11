@@ -30,9 +30,9 @@ public class SprioreadingTransformer {
 		return setSprioreadingsFromDAO(models);
 	}
 
-	public String getSprioreading() throws Exception {
+	public String getSprioreading(String x) throws Exception {
 		// make call to DAO
-		List<Sprioreading> result = getSprioreadingsFromDAO();
+		List<Sprioreading> result = getSprioreadingsFromDAO(x);
 
 		// transform to JSON and return results
 		Gson gson = new Gson();		
@@ -42,8 +42,8 @@ public class SprioreadingTransformer {
 		return j.toString();
 	}
 
-	private List<Sprioreading> getSprioreadingsFromDAO() throws Exception {
-		return new SpriorReadingDao().getspriorReadingData();
+	private List<Sprioreading> getSprioreadingsFromDAO(String x) throws Exception {
+		return new SpriorReadingDao().getspriorReadingData(x);
 	}
 
 	private int setSprioreadingsFromDAO(LinkedList<Sprioreading> models) throws Exception {

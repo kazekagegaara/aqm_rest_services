@@ -12,13 +12,13 @@ import edu.asu.poly.aspira.service.model.Logs;
 
 public class LogsDao {
 
-	public ArrayList<Logs> GetLogsData(String tableName) throws Exception{
+	public ArrayList<Logs> GetLogsData(String tableName, String offset) throws Exception{
 		ArrayList<Logs> logList = new ArrayList<Logs>();
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
 		try
 		{
-			String query = "SELECT * FROM "+tableName;
+			String query = "SELECT * FROM "+tableName+" limit 50 offset "+offset;
 			PreparedStatement ps = connection.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())

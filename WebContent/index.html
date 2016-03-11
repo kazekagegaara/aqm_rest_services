@@ -54,20 +54,20 @@
 			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav side-nav">
-					<li><a href="#"
-						ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio();">Show
+					<li><a id="spiroLog" href="#"
+						ng-click="isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = false;isSprioDisplayed = true;showSprio($event);">Show
 							Spirometer Reading</a></li>
-					<li><a href="#"
-						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog();">Show
+					<li><a id="uiLog" href="#"
+						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isErrorLogDisplayed = false;isUILogDisplayed = true;showUILog($event);">Show
 							UI Log</a></li>
-					<li><a href="#"
-						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = true;showErrorLog();">Show
+					<li><a id="errorLog" href="#"
+						ng-click="isSprioDisplayed = false;isAqmDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = true;showErrorLog($event);">Show
 							Error Log</a></li>
-					<li><a href="#"
-						ng-click="isSprioDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = true;showAQM();">Show
+					<li><a id="aqmLog" href="#"
+						ng-click="isSprioDisplayed = false;isUILogDisplayed = false;isErrorLogDisplayed = false;isAqmDisplayed = true;showAQM($event);">Show
 							AQM</a></li>
-					<li><a href="#"
-						ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM();showUILog();showErrorLog();showSprio();">Show
+					<li><a id="showall" href="#"
+						ng-click="isAqmDisplayed = true;isUILogDisplayed = true;isErrorLogDisplayed = true;isSprioDisplayed = true;showAQM($event);showUILog($event);showErrorLog($event);showSprio($event);">Show
 							All</a></li>
 					<li><a href="#" ng-click="exportSpiro();">Export
 							Spirometer Data to CSV</a></li>
@@ -95,6 +95,8 @@
 						</p>
 						<fieldset ng-show="isSprioDisplayed">
 							<legend>Spiro Reading</legend>
+							<button id="nextSpiro" ng-click="showSprio($event)">Next</button>
+							<button id="previousSpiro" ng-click="showSprio($event)">Previous</button>
 							<label>Search: <input ng-model="searchText"></label>
 							<table class="table table-hover table-striped">
 								<tr>
@@ -122,6 +124,8 @@
 						</fieldset>
 						<fieldset ng-show="isUILogDisplayed">
 							<legend>UI Log</legend>
+							<button id="next" ng-click="showUILog($event)">Next</button>
+							<button id="previous" ng-click="showUILog($event)">Previous</button>
 							<label>Search: <input ng-model="searchText1"></label>
 							<table class="table table-hover table-striped">
 								<tr>
@@ -151,6 +155,8 @@
 						</fieldset>
 						<fieldset ng-show="isErrorLogDisplayed">
 							<legend>Error Log</legend>
+							<button id="nextError" ng-click="showErrorLog($event)">Next</button>
+							<button id="previousError" ng-click="showErrorLog($event)">Previous</button>
 							<label>Search: <input ng-model="searchText2"></label>
 							<table class="table table-hover table-striped">
 								<tr>
@@ -180,6 +186,8 @@
 						</fieldset>
 						<fieldset ng-show="isAqmDisplayed">
 							<legend>AQM Reading</legend>
+							<button id="nextAqm" ng-click="showAQM($event)">Next</button>
+							<button id="previousAqm" ng-click="showAQM($event)">Previous</button>
 							<label>Search: <input ng-model="searchText3"></label>
 							<table class="table table-hover table-striped">
 								<tr>
@@ -222,34 +230,79 @@
 
 <script>
     var app = angular.module('myApp', ['angularUtils.directives.dirPagination']);
-
+	var offset =0;
+	var spirooffset =0;
+	var erroroffset =0;
+	var aqmoffset =0;
+	var spirourl;
+	var uiurl;
+	var errorurl;
+	var aqmurl;
     app.controller('sprioCtrl', function($scope, $http) {
 
       $scope.sprio;
       $scope.UIlog;
       $scope.aqm;
       $scope.Errorlog;
-
-      $scope.showSprio = function() {
-        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetSprioReading")
+      
+      $http.get('RESTURL.properties').then(function (response) {
+      	spirourl = response.data.spiro;
+      	uiurl = response.data.ui;
+      	errorurl = response.data.error;
+      	aqmurl = response.data.aqm;
+                    
+        });
+      $scope.showSprio = function(event) {
+    	  if(event.target.id == "nextSpiro"){
+    		  spirooffset = spirooffset + 50;
+      	}else if(event.target.id == "previousSpiro"){
+      		spirooffset = spirooffset - 50;
+      	}  
+    	  
+          
+    	  $http.get(spirourl+spirooffset)
           .then(function(response) {
             $scope.sprio = response.data.Sprioreading;
           });        
       }
-      $scope.showUILog = function() {
-        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetUILogs")
+      $scope.showUILog = function(event) {
+    	if(event.target.id == "next"){
+    		offset = offset + 50;
+    	}else if(event.target.id == "previous"){
+    		offset = offset - 50;
+    	}  
+    	
+        
+        
+        $http.get(uiurl+offset)
           .then(function(response) {
             $scope.UIlog = response.data.Logs;
-          });        
+          });
       }
-      $scope.showErrorLog = function() {
-          $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetErrorLogs")
+      
+      $scope.showErrorLog = function(event) {
+    	  if(event.target.id == "nextError"){
+    		  erroroffset = erroroffset + 50;
+      	}else if(event.target.id == "previousError"){
+      		erroroffset = erroroffset - 50;
+      	} 
+    	  
+        
+          
+          $http.get(errorurl+erroroffset)
             .then(function(response) {
               $scope.Errorlog = response.data.Logs;
             });        
       }
-      $scope.showAQM = function() {
-        $http.get("http://lead2.poly.asu.edu:8082/aqm_rest_services/rest/aspira/GetAQMreading")
+      $scope.showAQM = function(event) {
+    	  if(event.target.id == "nextAqm"){
+    		  aqmoffset = aqmoffset + 50;
+      	}else if(event.target.id == "previousAqm"){
+      		aqmoffset = aqmoffset - 50;
+      	}
+    	  
+        
+    	  $http.get(aqmurl+aqmoffset)
           .then(function(response) {
             $scope.aqm = response.data.AqmReadings;
           });        

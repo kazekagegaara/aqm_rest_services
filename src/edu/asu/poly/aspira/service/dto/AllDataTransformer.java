@@ -22,8 +22,8 @@ public class AllDataTransformer {
 	public String getAllData() throws Exception {
 		// make call to DAO
 		List<Sprioreading> sprioreadingResult = getSprioreadingsFromDAO();
-		List<Logs> logResult = getLogsFromDAO("uilogs");
-		logResult.addAll(getLogsFromDAO("errorlogs"));
+		List<Logs> logResult = getLogsFromDAO("uilogs","0");
+		logResult.addAll(getLogsFromDAO("errorlogs","0"));
 		List<AqmReadings> aqmReadingsResult = getAqmReadingsFromDAO();
 
 		// transform to JSON and return results
@@ -39,16 +39,16 @@ public class AllDataTransformer {
 	}
 
 	private List<Sprioreading> getSprioreadingsFromDAO() throws Exception {
-		return new SpriorReadingDao().getspriorReadingData();
+		return new SpriorReadingDao().getspriorReadingData("0");
 	}
 	
-	private List<Logs> getLogsFromDAO(String tableName) throws Exception {		
-		return new LogsDao().GetLogsData(tableName);		
+	private List<Logs> getLogsFromDAO(String tableName, String offset) throws Exception {		
+		return new LogsDao().GetLogsData(tableName, offset);		
 	}
 
 	
 	private List<AqmReadings> getAqmReadingsFromDAO() throws Exception {
-		return new AQMReadingDao().GetAqmReadingData();
+		return new AQMReadingDao().GetAqmReadingData("0");
 	}
 
 }

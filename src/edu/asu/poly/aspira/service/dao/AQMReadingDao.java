@@ -12,13 +12,13 @@ import edu.asu.poly.aspira.service.model.AqmReadings;
 
 public class AQMReadingDao {
 
-	public ArrayList<AqmReadings> GetAqmReadingData() throws Exception{
+	public ArrayList<AqmReadings> GetAqmReadingData(String offset) throws Exception{
 		Database database= new Database();
 		Connection connection = database.Get_Connection();
 		ArrayList<AqmReadings> aqmList = new ArrayList<AqmReadings>();
 		try
 		{
-			String query = "SELECT * FROM aqmreadings";
+			String query = "SELECT * FROM aqmreadings limit 50 offset "+offset;
 			PreparedStatement ps = connection.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())

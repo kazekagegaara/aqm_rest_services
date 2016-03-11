@@ -30,9 +30,9 @@ public class AqmReadingsTransformer {
 		return setAqmReadingFromDAO(models);
 	}
 	
-	public String getAqmReading() throws Exception {
+	public String getAqmReading(String x) throws Exception {
 		// make call to DAO
-		List<AqmReadings> result = getAqmReadingsFromDAO();
+		List<AqmReadings> result = getAqmReadingsFromDAO(x);
 		
 		// transform to JSON and return results
 		Gson gson = new Gson();		
@@ -42,8 +42,8 @@ public class AqmReadingsTransformer {
 		return j.toString();		
 	}
 	
-	private List<AqmReadings> getAqmReadingsFromDAO() throws Exception {
-		return new AQMReadingDao().GetAqmReadingData();
+	private List<AqmReadings> getAqmReadingsFromDAO(String x) throws Exception {
+		return new AQMReadingDao().GetAqmReadingData(x);
 	}
 	
 	private int setAqmReadingFromDAO(LinkedList<AqmReadings> models) throws Exception {
